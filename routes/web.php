@@ -3,4 +3,5 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountsController;
 
-Route::get('/login',[AccountsController::class,'login'])->name("login");
+Route::GET('/login',[AccountsController::class,'login'])->name("login");
+Route::POST('/loginAction',[AccountsController::class,'loginAction'])->name("loginAction");

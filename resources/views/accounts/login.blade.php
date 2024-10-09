@@ -16,7 +16,7 @@
 <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
     <div class="card col-md-3 p-3 shadow">
         <img src="{{ asset('assets/images/unand.png')}}"> 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('loginAction') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <input type="text" name="username" class="form-control" placeholder="Username" required>
@@ -27,15 +27,6 @@
             <button type="submit" class="btn btn-success w-100">Login</button>
         </form>
     </div>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="list-unstyled">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 </div>
 </body>
 </html>
