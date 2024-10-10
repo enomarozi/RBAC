@@ -15,8 +15,8 @@ class DashboardController extends Controller
         $menus = Menus::query();
         return DataTables::of($menus)
             ->addColumn('action',function($menu){
-                return '<button class="btn btn-xs btn-primary data-id="'.$menu->id.'">Edit</button>
-                    <button class="btn btn-xs btn-danger data-id="'.$menu->id.'">Delete</button>';
+                return '<button id="modalEdit" class="btn btn-xs btn-success data-id="'.$menu->id.'">Edit</button>
+                    <button id="modalDelete" class="btn btn-xs btn-danger data-id="'.$menu->id.'">Delete</button>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -26,7 +26,7 @@ class DashboardController extends Controller
             'name'=>'required|max:30',
             'path'=>'required|max:30',
         ]);
-        
+
         Menus::create([
             'name' => $request->name,
             'path' => $request->path,

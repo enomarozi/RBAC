@@ -92,7 +92,7 @@
     </div>
 </div>
 <div class="content" id="content">
-	<button id="openModalBtn" class="btn btn-success mb-3">Add Menu</button>
+	<button id="modalAdd" class="btn btn-primary mb-3">Add Menu</button>
 
 	<div class="modal" id="myModal">
         <div class="modal-content">
@@ -101,45 +101,21 @@
             <div class="modal-body">
                 <form method="POST" action="{{ route('storeMenu') }}">
                 	@csrf
+                	<input type="hidden" name="action" value="save" required>
                 	<div class="mb-3">
-                		<input class='form-control' type="text" name="name" placeholder="Name">
+                		<input class='form-control' type="text" name="name" placeholder="Name" required>
                 	</div>
                 	<div class="mb-3">
-                		<input class='form-control' type="text" name="path" placeholder="Path">
+                		<input class='form-control' type="text" name="path" placeholder="Path" required>
                 	</div>
                 	<div class="mb-3">
-                		<input class='form-control' type="text" name="description" placeholder="Description">
+                		<input class='form-control' type="text" name="description" placeholder="Description" required>
                 	</div>
                 	<button id="saveChangesBtn" type="submit" class="btn btn-primary w-100">SAVE CHANGES</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-    	const modal = document.getElementById('myModal');
-    	const btn = document.getElementById("openModalBtn");
-    	const span = document.getElementsByClassName("close")[0];
-    	const saveBtn = document.getElementById("saveChangesBtn");
-
-    	btn.onclick = function(){
-    		modal.style.display = "block";
-    	}
-
-    	span.onclick = function(){
-    		modal.style.display = "none";
-    	}
-
-    	window.onclick = function(event){
-    		if(event.target === modal){
-    			modal.style.display = "none";
-    		}
-    	}
-
-    	saveBtn.onclick = function(){
-    		modal.style.display = "none";
-    	}
-    </script>
 	<table id="menus-table" class="display table table-striped table-bordered">
         <thead>
             <tr>
@@ -152,7 +128,6 @@
         <tbody id="menus-tbody">
         </tbody>
     </table>
-
     <script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
@@ -185,6 +160,36 @@
     		})
     	})
     </script>
+    <script type="text/javascript">
+    	const modal = document.getElementById('myModal');
+    	const btnAdd = document.getElementById("modalAdd");
+    	const btnEdit = document.getElementById("modalEdit");
+    	const span = document.getElementsByClassName("close")[0];
+    	const saveBtn = document.getElementById("saveChangesBtn");
+
+    	btnAdd.onclick = function(){
+    		modal.style.display = "block";
+    	}
+
+    	btnEdit.onclick = function(){
+    		modal.style.display = "block";
+    	}
+
+    	span.onclick = function(){
+    		modal.style.display = "none";
+    	}
+
+    	window.onclick = function(event){
+    		if(event.target === modal){
+    			modal.style.display = "none";
+    		}
+    	}
+
+    	saveBtn.onclick = function(){
+    		modal.style.display = "none";
+    	}
+    </script>
+    
 
 </div>
 <script>
