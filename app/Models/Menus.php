@@ -15,6 +15,8 @@ class Menus extends Model
     protected $fillable = [
         'name',
         'path',
+        'menu',
+        'submenu',
         'description',
         'created_at',
         'updated_at',
