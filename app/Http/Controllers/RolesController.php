@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Menus;
+use App\Models\Roles;
 
-class DashboardController extends Controller
+class RolesController extends Controller
 {
-    public function index(){
-        return view('dashboard');
+    public function indexrole(){
+        return view('configuration/role');
     }
-    public function crudData(Request $request){
+    public function datarole(Request $request){
         if($request->action == "DELETE"){
             $menu = Menus::findOrFail($request->id);
             $menu->delete();
@@ -49,8 +49,8 @@ class DashboardController extends Controller
         }
         return redirect()->route('index')->with('success',"Menu Created Successfully!");
     }
-    public function getData(){
-        $menus = Menus::all();
+    public function getDataRole(){
+        $menus = Roles::all();
         return response()->json($menus);
     }
 }
