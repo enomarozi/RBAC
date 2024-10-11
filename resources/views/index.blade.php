@@ -83,7 +83,7 @@
                     <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('indexrole') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-lock" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
+                    <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-tag" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
@@ -91,6 +91,14 @@
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-check" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
                 </li>
+            </div>
+            <div class="card-title">
+                <span class='text-muted'>Content</span>
+                <!-- @foreach($menus as $menu)
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ $menu->path }}" role="button" aria-expanded="true" aria-controls="submenu1"> {{ $menu->name }}</a>
+                    </li>
+                @endforeach -->
             </div>
         </ul>
     </div>

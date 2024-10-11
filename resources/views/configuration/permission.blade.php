@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<button class="btn btn-primary mb-3" onClick="modalAdd()">Add Menu</button>
+<button class="btn btn-primary mb-3" onClick="modalAdd()">Add Permission</button>
 
 <div class="modal" id="myModal">
     <div class="modal-content">
@@ -9,15 +9,15 @@
             <h4 id="titleModal"></h4>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('dataMenu') }}">
+            <form method="POST" action="{{ route('datapermission') }}">
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
             	<div class="mb-3">
-            		<input id='name_' class='form-control' type="text" name="name" placeholder="Name" required>
+            		<input id='name_' class='form-control' type="text" name="name" placeholder="Menu" required>
             	</div>
-            	<div class="mb-3">
-            		<input id='path_' class='form-control' type="text" name="path" placeholder="Path" required>
-            	</div>
+                <div class="mb-3">
+                    <input id='name_' class='form-control' type="text" name="user_action" placeholder="Permission" required>
+                </div>
             	<div class="mb-3">
             		<input id='description_' class='form-control' type="text" name="description" placeholder="Description" required>
             	</div>
@@ -31,11 +31,11 @@
     <div class="modal-content">
         <span class="close" style="cursor: pointer;">&times;</span>
         <div class="text-center mb-2">
-            <h4 id="titleModal">Delete Menu</h4>
+            <h4 id="titleModal">Delete Permission</h4>
         </div>
         <div class="modal-body text-center">
             <p>Are you sure you want to delete this item? This action cannot be undone.</p>
-            <form method="POST" action="{{ route('dataMenu') }}">
+            <form method="POST" action="{{ route('datapermission') }}">
                 @csrf
                 <input type="hidden" id="iddel" name="id">
                 <div class="d-flex justify-content-between">
@@ -52,7 +52,6 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Path</th>
             <th>Description</th>
             <th>Action</th>
         </tr>
@@ -64,7 +63,7 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
-    fetch('{{ route("getDataMenu") }}')
+    fetch('{{ route("getDataPermission") }}')
     .then(response => response.json())
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
@@ -79,17 +78,13 @@
             nameCell.textContent = menu.name;
             row.appendChild(nameCell);
 
-            const pathCell = document.createElement('td');
-            pathCell.textContent = menu.path;
-            row.appendChild(pathCell);
-
-            const descriptionCell = document.createElement('td');
-            descriptionCell.textContent = menu.description;
-            row.appendChild(descriptionCell);
+            const subMenuCell = document.createElement('td');
+            subMenuCell.textContent = menu.description;
+            row.appendChild(subMenuCell);
 
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.name}", "${menu.path}", "${menu.description}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalEdit(${menu.id},"${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
                 <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
@@ -103,7 +98,6 @@
     function modalAdd(){
         document.getElementById('id_').value='';
         document.getElementById('name_').value='';
-        document.getElementById('path_').value='';
         document.getElementById('description_').value='';
 
         const btnSubmit = document.getElementById("submit_");
@@ -118,7 +112,7 @@
         }
         
         const titleModal = document.getElementById("titleModal");
-        titleModal.textContent = "Add Menu"
+        titleModal.textContent = "Add Permission"
 
         window.onclick = function(event){
             if(event.target === modal){
@@ -130,10 +124,9 @@
         }
     }
 
-    function modalEdit(id,name,path,description){
+    function modalEdit(id,name,path,menu,submenu,description){
         document.getElementById('id_').value=id;
         document.getElementById('name_').value=name;
-        document.getElementById('path_').value=path;
         document.getElementById('description_').value=description;
 
         const btnSubmit = document.getElementById("submit_");
@@ -148,7 +141,7 @@
         }
 
         const titleModal = document.getElementById("titleModal");
-        titleModal.textContent = "Edit Menu"            
+        titleModal.textContent = "Edit Permission"            
 
         window.onclick = function(event){
             if(event.target === modal){
