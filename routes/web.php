@@ -28,7 +28,7 @@ Route::POST('/datapermission',[PermissionsController::class,'datapermission'])->
 Route::GET('/getDataPermission',[PermissionsController::class,'getDataPermission'])->name("getDataPermission");
 
 Route::GET('/add_user',[AccountsController::class,'add_user'])->name("add_user");
-Route::POST('/data_user',[AccountsController::class,'data_user'])->name("data_user");
+Route::POST('/add_user_action',[AccountsController::class,'add_user_action'])->name("add_user_action");
 Route::GET('/userData',[AccountsController::class,'userData'])->name("userData");
 
 Route::GET('/role_access',[AccessRoleController::class,'indexroleAccess'])->name('indexroleAccess');

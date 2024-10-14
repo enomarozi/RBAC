@@ -6,12 +6,11 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="text-center mb-2">
-            <h4 id="titleModal"></h4>
+            <h4 id="titleModal">Add User</h4>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('data_user') }}">
+            <form method="POST" action="{{ route('add_user_action') }}">
                 @csrf
-                <input id='id_' type="hidden" name="id" required>
                 <div class="mb-3">
                     <input id='name_' class='form-control' type="text" name="name" placeholder="Full Name" required>
                 </div>
@@ -25,9 +24,9 @@
                     <input id='password_' class='form-control' type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="mb-3">
-                    <input id='confirmpassword_' class='form-control' type="email" name="confirmpassword_" placeholder="Password Confirm" required>
+                    <input id='confirmpassword_' class='form-control' type="password" name="confirmpassword" placeholder="Password Confirm" required>
                 </div>
-                <button id="submit_" type="submit" name="action" class="btn btn-primary w-100"></button>
+                <button id="submit_" type="submit" class="btn btn-primary w-100">Save</button>
             </form>
         </div>
     </div>
@@ -87,14 +86,11 @@
 </script>
 <script type="text/javascript">
     function modalAdd(){
-        document.getElementById('id_').value='';
         document.getElementById('name_').value='';
         document.getElementById('username_').value='';
         document.getElementById('email_').value='';
 
         const btnSubmit = document.getElementById("submit_");
-        btnSubmit.textContent = "Save"
-        btnSubmit.value = "SAVE"
 
         const span = document.getElementsByClassName("close")[0];
         const modal = document.getElementById('myModal');
@@ -104,13 +100,13 @@
         }
         
         const titleModal = document.getElementById("titleModal");
-        titleModal.textContent = "Add Role"
 
         window.onclick = function(event){
             if(event.target === modal){
                 modal.style.display = "none";
             }
         }
+
         btnSubmit.onclick = function(){
             modal.style.display = "none";
         }

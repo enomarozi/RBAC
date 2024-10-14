@@ -104,6 +104,13 @@
 </div>
 <div class="content" id="content">
 @yield('content')
+@if ($errors->any())
+    <div class="text-danger small mt-2 text-center w-100">
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
 </div>
 <script>
     document.getElementById("sidebarMinimize").addEventListener("click", function(){

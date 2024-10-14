@@ -6,4 +6,14 @@
         <option value="{{$user->username }}">{{ $user->username }}</option>
     @endforeach
 </select>
+@php
+$data = array();
+@endphp
+@foreach($roles as $role)
+    @foreach($permissions as $permission)
+        @if($permission->role == $role->name)
+            $print_role = array_push($data,$role->name)
+        @endif
+    @endforeach
+@endforeach
 @endsection

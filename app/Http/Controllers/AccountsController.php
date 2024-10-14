@@ -36,7 +36,7 @@ class AccountsController extends Controller
         if(strlen($request->password)>=8 && strlen($request->confirmpassword)>=8){
             if($request->password === $request->confirmpassword){
                 $username = $request->input('username');
-                $exists = Users::where('username', $username)->exists();
+                $exists = User::where('username', $username)->exists();
                 if ($exists) {
                     return redirect()->back()->withErrors(['error' => 'Username has already been taken.']);
                 } else {
@@ -48,7 +48,6 @@ class AccountsController extends Controller
                     $user->save();
                     return redirect()->route('login')->with('success', 'User registered successfully.');
                 }
-                
             }else{
                 return redirect()->back()->withErrors(['error' => 'The password and confirm password must match.']);
             }
@@ -59,6 +58,35 @@ class AccountsController extends Controller
     }
     public function add_user(){
         return view('configuration/user');
+    }
+    public function add_user_action(Request $request){
+        $validasi = $request->validate([
+            'name'=>'required|min:2|max:40',
+            'username'=>'required|min:2|max:30',
+            'email'=>'required|min:8|max:50',
+            'password'=>'required|min:8',
+            'confirmpassword'=>'required|min:8|max:30',
+        ]);
+        if(strlen($request->password)>=8 && strlen($request->confirmpassword)>=8){
+            if($request->password === $request->confirmpassword){
+                $username = $request->input('username');
+                $exists = User::where('username', $username)->exists();
+                if ($exists) {
+                    return redirect()->back()->withErrors(['error' => 'Username has already been taken.']);
+                } else {
+                    $user = new User();
+                    $user->name = $request->name;
+                    $user->username = $request->username;
+                    $user->email = $request->email;
+                    $user->password = Hash::make($request->password);
+                    $user->save();
+                }
+            }else{
+                return redirect()->back()->withErrors(['error' => 'The password and confirm password must match.']);
+            }
+        }else{
+            return redirect()->back()->withErrors(['error' => 'The password must be at least 8 characters.']);
+        }
     }
     public function userData(){
         $users = User::all();
