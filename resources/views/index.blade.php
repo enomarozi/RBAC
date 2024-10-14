@@ -65,7 +65,7 @@
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -86,7 +86,7 @@
                     <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
+                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('indexroleAccess') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-check" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
@@ -94,11 +94,6 @@
             </div>
             <div class="card-title">
                 <span class='text-muted'>Content</span>
-                <!-- @foreach($menus as $menu)
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ $menu->path }}" role="button" aria-expanded="true" aria-controls="submenu1"> {{ $menu->name }}</a>
-                    </li>
-                @endforeach -->
             </div>
         </ul>
     </div>

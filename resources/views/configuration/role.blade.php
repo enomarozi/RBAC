@@ -65,11 +65,13 @@
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
         tbody.innerHTML = '';
+        let autoIncrementId = 1;
         data.forEach(menu => {
             const row = document.createElement('tr');
             const idCell = document.createElement('td');
-            idCell.textContent = menu.id;
+            idCell.textContent += autoIncrementId;
             row.appendChild(idCell);
+            autoIncrementId++;
 
             const nameCell = document.createElement('td');
             nameCell.textContent = menu.name;
@@ -121,7 +123,7 @@
         }
     }
 
-    function modalEdit(id,name,path,menu,submenu,description){
+    function modalEdit(id,name,description){
         document.getElementById('id_').value=id;
         document.getElementById('name_').value=name;
         document.getElementById('description_').value=description;

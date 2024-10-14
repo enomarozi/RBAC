@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('access_roles', function (Blueprint $table) {
             $table->id();
+            $table->string('user');
             $table->string('role');
             $table->string('permission');
             $table->text('description')->nullable();
@@ -20,8 +21,11 @@ return new class extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('access_roles');
     }
 };

@@ -8,8 +8,7 @@ use App\Models\Menus;
 class MenusController extends Controller
 {
     public function indexmenu(){
-        $menus = Menus::all();
-        return view('configuration/menu',compact('menus'));
+        return view('configuration/menu');
     }
     public function dataMenu(Request $request){
         if($request->action == "DELETE"){

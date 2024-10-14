@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Permissions; 
+use App\Models\{Permissions,Roles}; 
 
 class PermissionsController extends Controller
 {
     public function indexpermission(){
-        return view('configuration/permission');
+        $roles = Roles::all();
+        return view('configuration/permission',compact('roles'));
     }
     public function datapermission(Request $request){
         if($request->action == "DELETE"){
@@ -17,13 +18,15 @@ class PermissionsController extends Controller
             return redirect()->route('indexpermission')->with('success', 'Menu deleted successfully!');
         }
         $validasi = $request->validate([
-            'name'=>'required|max:30',
+            'role'=>'required|max:30',
+            'permission'=>'required|max:30',
             'description'=>'max:100',
             'action'=>'required|max:6',
         ]);
         if($request->action == "SAVE"){
             Permissions::create([
-                'name' => $request->name,
+                'role' => $request->role,
+                'permission'=>$request->permission,
                 'description'=> $request->description,
                 'created_at'=>now(),
                 'updated_at'=>now(),
@@ -32,7 +35,8 @@ class PermissionsController extends Controller
         }elseif($request->action == "UPDATE"){
             $menu = Permissions::findOrFail($request->id);
             $menu->update([
-                'name' => $request->name,
+                'role' => $request->role,
+                'permission'=>$request->permission,
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);

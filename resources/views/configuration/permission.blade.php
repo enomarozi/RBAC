@@ -12,11 +12,16 @@
             <form method="POST" action="{{ route('datapermission') }}">
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
-            	<div class="mb-3">
-            		<input id='name_' class='form-control' type="text" name="name" placeholder="Menu" required>
-            	</div>
                 <div class="mb-3">
-                    <input id='name_' class='form-control' type="text" name="user_action" placeholder="Permission" required>
+                    <select id='role_' class="form-select" aria-label="Default select example" name='role'>
+                        <option value="" selected disabled hidden>--- Pilih Role ---</option>
+                        @foreach($roles as $role)
+                            <option value="{{$role->name}}">{{ $role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input id='permission_' class='form-control' type="text" name="permission" placeholder="Permission" required>
                 </div>
             	<div class="mb-3">
             		<input id='description_' class='form-control' type="text" name="description" placeholder="Description" required>
@@ -51,7 +56,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Role</th>
+            <th>Permission</th>
             <th>Description</th>
             <th>Action</th>
         </tr>
@@ -68,15 +74,21 @@
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
         tbody.innerHTML = '';
+        let autoIncrementId = 1;
         data.forEach(menu => {
             const row = document.createElement('tr');
             const idCell = document.createElement('td');
-            idCell.textContent = menu.id;
+            idCell.textContent = autoIncrementId;
             row.appendChild(idCell);
+            autoIncrementId++;
 
-            const nameCell = document.createElement('td');
-            nameCell.textContent = menu.name;
-            row.appendChild(nameCell);
+            const roleCell = document.createElement('td');
+            roleCell.textContent = menu.role;
+            row.appendChild(roleCell);
+
+            const permissionCell = document.createElement('td');
+            permissionCell.textContent = menu.permission;
+            row.appendChild(permissionCell);
 
             const subMenuCell = document.createElement('td');
             subMenuCell.textContent = menu.description;
@@ -84,7 +96,7 @@
 
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalEdit(${menu.id},"${menu.role}","${menu.permission}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
                 <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
@@ -97,7 +109,8 @@
 <script type="text/javascript">
     function modalAdd(){
         document.getElementById('id_').value='';
-        document.getElementById('name_').value='';
+        document.getElementById('role_').value='';
+        document.getElementById('permission_').value='';
         document.getElementById('description_').value='';
 
         const btnSubmit = document.getElementById("submit_");
@@ -124,9 +137,10 @@
         }
     }
 
-    function modalEdit(id,name,path,menu,submenu,description){
+    function modalEdit(id,role,permission,description){
         document.getElementById('id_').value=id;
-        document.getElementById('name_').value=name;
+        document.getElementById('role_').value=role;
+        document.getElementById('permission_').value=permission;
         document.getElementById('description_').value=description;
 
         const btnSubmit = document.getElementById("submit_");
