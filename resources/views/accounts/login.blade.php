@@ -26,6 +26,17 @@
             </div>
             <button type="submit" class="btn btn-success w-100">Login</button>
         </form>
+        @if (session('success'))
+            <div class="text-success small mt-2 text-center w-100">
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if ($errors->has('error'))
+            <div class="text-danger small mt-2 text-center w-100">
+                {{ $errors->first('error') }}
+            </div>
+        @endif
     </div>
 </div>
 </body>

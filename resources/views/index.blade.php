@@ -75,7 +75,7 @@
     <div class="sidebar-body">
         <ul class="nav flex-column">
             <div class="card-title">
-                <span class='text-muted'>KONFIGURASI</span>
+                <span class='text-muted'>Configuration</span>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('indexmenu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
                 </li>
@@ -86,11 +86,15 @@
                     <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('add_user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('indexroleAccess') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-check" href="#submenu1" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
+                    <a class="nav-link dropdown-toggle fas fa-user-check" href="#" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
                 </li>
+                
             </div>
             <div class="card-title">
                 <span class='text-muted'>Content</span>

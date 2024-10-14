@@ -19,6 +19,9 @@
         <form action="{{ route('registrationAction') }}" method="POST">
             @csrf
             <div class="mb-3">
+                <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+            </div>
+            <div class="mb-3">
                 <input type="text" name="username" class="form-control" placeholder="Username" required>
             </div>
             <div class="mb-3">
@@ -28,16 +31,19 @@
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
             <div class="mb-3">
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Password" required>
+                <input type="password" name="confirmpassword" class="form-control" placeholder="Password Confirm" required>
             </div>
             <button type="submit" class="btn btn-success w-100">Registration</button>
         </form>
+        @if ($errors->any())
+            <div class="text-danger small mt-2 text-center w-100">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
     </div>
-    @if ($errors->has('password'))
-        <div class="text-danger small mt-2 text-center w-100">
-            {{ $errors->first('password') }}
-        </div>
-    @endif
+    
 </div>
 </body>
 </html>
