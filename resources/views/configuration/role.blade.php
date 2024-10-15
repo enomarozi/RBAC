@@ -12,8 +12,16 @@
             <form method="POST" action="{{ route('datarole') }}">
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
+                <div class="mb-3">
+                    <select id='path_' class="form-select" aria-label="Default select example" name='path'>
+                        <option value="" selected disabled hidden>--- Choose Path ---</option>
+                        @foreach($menus as $menu)
+                            <option value="{{$menu->name}}">{{ $menu->path }}</option>
+                        @endforeach
+                    </select>
+                </div>
             	<div class="mb-3">
-            		<input id='name_' class='form-control' type="text" name="name" placeholder="Name" required>
+            		<input id='name_' class='form-control' type="text" name="name" placeholder="Role Name" required>
             	</div>
             	<div class="mb-3">
             		<input id='description_' class='form-control' type="text" name="description" placeholder="Description" required>
@@ -48,6 +56,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Path</th>
             <th>Name</th>
             <th>Description</th>
             <th>Action</th>
@@ -73,6 +82,10 @@
             row.appendChild(idCell);
             autoIncrementId++;
 
+            const pathCell = document.createElement('td');
+            pathCell.textContent = menu.path;
+            row.appendChild(pathCell);
+
             const nameCell = document.createElement('td');
             nameCell.textContent = menu.name;
             row.appendChild(nameCell);
@@ -83,7 +96,7 @@
 
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalEdit(${menu.id},"${menu.path}","${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
                 <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
@@ -96,6 +109,7 @@
 <script type="text/javascript">
     function modalAdd(){
         document.getElementById('id_').value='';
+        document.getElementById('path_').value='';
         document.getElementById('name_').value='';
         document.getElementById('description_').value='';
 
@@ -123,8 +137,9 @@
         }
     }
 
-    function modalEdit(id,name,description){
+    function modalEdit(id,path,name,description){
         document.getElementById('id_').value=id;
+        document.getElementById('path_').value=path;
         document.getElementById('name_').value=name;
         document.getElementById('description_').value=description;
 

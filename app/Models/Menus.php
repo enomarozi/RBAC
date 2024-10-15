@@ -13,8 +13,8 @@ class Menus extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'name',
         'path',
+        'name',
         'description',
         'created_at',
         'updated_at',

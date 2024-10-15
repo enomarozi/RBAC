@@ -13,10 +13,6 @@ class AccountsController extends Controller
         return view('accounts/login');
     }
     public function loginAction(Request $request){
-        $validasi = $request->validate([
-            'username'=>'required|min:8|max:30',
-            'password'=>'required|min:8',
-        ]);
         if (Auth::attempt($request->only('username', 'password'))) {
             return redirect()->route('indexmenu');
         }
@@ -80,6 +76,7 @@ class AccountsController extends Controller
                     $user->email = $request->email;
                     $user->password = Hash::make($request->password);
                     $user->save();
+                    return redirect()->back();
                 }
             }else{
                 return redirect()->back()->withErrors(['error' => 'The password and confirm password must match.']);

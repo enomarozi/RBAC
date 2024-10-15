@@ -82,18 +82,18 @@
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('indexrole') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('add_user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('indexroleAccess') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-check" href="#" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
-                </li>
+                </li> -->
                 
             </div>
             <div class="card-title">

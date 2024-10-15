@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Roles;
+use App\Models\{Roles,Menus};
 
 class RolesController extends Controller
 {
     public function indexrole(){
-        return view('configuration/role');
+        $menus = Menus::all();
+        return view('configuration/role',compact('menus'));
     }
     public function datarole(Request $request){
         if($request->action == "DELETE"){
@@ -17,12 +18,14 @@ class RolesController extends Controller
             return redirect()->route('indexrole')->with('success', 'Menu deleted successfully!');
         }
         $validasi = $request->validate([
+            'path'=>'required|max:50',
             'name'=>'required|max:30',
             'description'=>'max:100',
             'action'=>'required|max:6',
         ]);
         if($request->action == "SAVE"){
             Roles::create([
+                'path'=>$request->path,
                 'name' => $request->name,
                 'description'=> $request->description,
                 'created_at'=>now(),

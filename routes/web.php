@@ -32,3 +32,5 @@ Route::POST('/add_user_action',[AccountsController::class,'add_user_action'])->n
 Route::GET('/userData',[AccountsController::class,'userData'])->name("userData");
 
 Route::GET('/role_access',[AccessRoleController::class,'indexroleAccess'])->name('indexroleAccess');
+Route::POST('/roleAction',[AccessRoleController::class,'roleAction'])->name('roleAction');
+Route::GET('/getDataAccessRole',[AccessRoleController::class,'getDataAccessRole'])->name('getDataAccessRole');
