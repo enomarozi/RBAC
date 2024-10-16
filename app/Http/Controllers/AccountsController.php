@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{User,Roles};
 use Illuminate\Support\Facades\Auth;
 use Hash;
+use DB;
 
 class AccountsController extends Controller
 {
@@ -48,6 +49,31 @@ class AccountsController extends Controller
             $user->save();
             return redirect()->route('login')->with('success', 'User registered successfully.');
         }
+    }
+    public function profile(){
+        $user = Auth::user();
+        $fullname = DB::table('users')
+                ->select('users.name')
+                ->leftJoin('access_roles', 'access_roles.user', '=', 'users.name')
+                ->where('users.username', $user->username)
+                ->get();
+        $role = DB::table('access_roles')
+                ->where('user', 'administrator')
+                ->pluck('role')
+                ->first();
+        return view('accounts/profile',compact('user','fullname','role'));
+    }
+    public function setting(){
+        return view('accounts/setting');
+    }
+    public function passwordAction(Request $request){
+        dd($request->all());
+        $validasi = $request->validate([
+            'oldpassword'=>'required|min:8',
+            'newpassword'=>'required|min:8',
+            'confirmpassword'=>'required|min:8|same:newpassword',
+        ]);
+        
     }
     public function user(){
         return view('configuration/user');

@@ -12,6 +12,9 @@ Route::group(['prefix' => 'account'], function () {
 	Route::GET('/logout',[AccountsController::class,'logout'])->name('logout');
 	Route::GET('/registration',[AccountsController::class,'registration'])->name('registration');
 	Route::POST('/registrationAction',[AccountsController::class,'registrationAction'])->name('registrationAction');
+	Route::GET('/profile',[AccountsController::class,'profile'])->middleware('auth')->name('profile');
+	Route::GET('/setting',[AccountsController::class,'setting'])->middleware('auth')->name('setting');
+	Route::POST('/passwordAction',[AccountsController::class,'passwordAction'])->middleware('auth')->name('passwordAction');
 });
 
 Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
@@ -32,7 +35,8 @@ Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
 	Route::GET('/getUser',[AccountsController::class,'getUser'])->name("getUser");
 });
 
-
-Route::GET('/role_access',[AccessRoleController::class,'indexroleAccess'])->name('indexroleAccess');
-Route::POST('/roleAction',[AccessRoleController::class,'roleAction'])->name('roleAction');
-Route::GET('/getDataAccessRole',[AccessRoleController::class,'getDataAccessRole'])->name('getDataAccessRole');
+Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
+	Route::GET('/access_role',[AccessRoleController::class,'access_role'])->name('access_role');
+	Route::POST('/crudAccessRole',[AccessRoleController::class,'crudAccessRole'])->name('crudAccessRole');
+	Route::GET('/getAccessRole',[AccessRoleController::class,'getAccessRole'])->name('getAccessRole');
+});

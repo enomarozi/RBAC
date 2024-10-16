@@ -44,8 +44,7 @@
     <tbody id="menus-tbody">
     </tbody>
 </table>
-<script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
     fetch('{{ route("getUser") }}')

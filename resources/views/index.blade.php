@@ -8,8 +8,8 @@
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<!-- Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+	<link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
 </head>
 <style>
     .modal {
@@ -62,8 +62,8 @@
                 {{ Auth::user()->name }} <i class="fas fa-user-circle dark-icon"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('setting') }}">Setting</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
             </ul>
@@ -87,19 +87,12 @@
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('indexroleAccess') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-check" href="#" role="button" aria-expanded="true" aria-controls="submenu1"> Access User</a>
-                </li> -->
-                
+                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
+                </li>                
             </div>
             <div class="card-title">
                 <span class='text-muted'>Content</span>
@@ -108,6 +101,8 @@
     </div>
 </div>
 <div class="content" id="content">
+<script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
 @yield('content')
 @if ($errors->any())
     <div class="text-danger small mt-2 text-center w-100">
@@ -148,6 +143,6 @@
         }
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

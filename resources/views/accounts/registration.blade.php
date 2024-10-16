@@ -31,7 +31,7 @@
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
             <div class="mb-3">
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Password Confirm" required>
+                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
             </div>
             <button type="submit" class="btn btn-success w-100">Registration</button>
         </form>

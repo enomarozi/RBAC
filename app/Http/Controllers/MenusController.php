@@ -39,7 +39,7 @@ class MenusController extends Controller
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Menu Update successfully!']);
+            return redirect()->back()->withErrors(['success' => 'Menu Updated successfully!']);
         }
     }
     public function getMenu(){

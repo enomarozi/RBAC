@@ -13,8 +13,8 @@ class RolesController extends Controller
     }
     public function crudRole(Request $request){
         if($request->action == "DELETE"){
-            $menu = Roles::findOrFail($request->id);
-            $menu->delete();
+            $roles = Roles::findOrFail($request->id);
+            $roles->delete();
             return redirect()->back()->withErrors(['success' => 'Role Deleted successfully!']);
         }
         $validasi = $request->validate([
@@ -33,8 +33,8 @@ class RolesController extends Controller
             ]);
             return redirect()->back()->withErrors(['success' => 'Role Created successfully!']);
         }elseif($request->action == "UPDATE"){
-            $menu = Roles::findOrFail($request->id);
-            $menu->update([
+            $roles = Roles::findOrFail($request->id);
+            $roles->update([
                 'path'=>$request->path,
                 'name' => $request->name,
                 'description' => $request->description,
