@@ -7,15 +7,15 @@ use App\Models\{Roles,Menus};
 
 class RolesController extends Controller
 {
-    public function indexrole(){
+    public function role(){
         $menus = Menus::all();
         return view('configuration/role',compact('menus'));
     }
-    public function datarole(Request $request){
+    public function crudRole(Request $request){
         if($request->action == "DELETE"){
             $menu = Roles::findOrFail($request->id);
             $menu->delete();
-            return redirect()->route('indexrole')->with('success', 'Menu deleted successfully!');
+            return redirect()->back()->withErrors(['success' => 'Role Deleted successfully!']);
         }
         $validasi = $request->validate([
             'path'=>'required|max:50',
@@ -31,7 +31,7 @@ class RolesController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
-            return redirect()->route('indexrole')->with('success', 'Menu add successfully!');
+            return redirect()->back()->withErrors(['success' => 'Role Created successfully!']);
         }elseif($request->action == "UPDATE"){
             $menu = Roles::findOrFail($request->id);
             $menu->update([
@@ -39,11 +39,10 @@ class RolesController extends Controller
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);
-            return redirect()->route('indexrole')->with('success', 'Menu update successfully!');
+            return redirect()->back()->withErrors(['success' => 'Role Updated successfully!']);
         }
-        return redirect()->route('indexrole')->with('success',"Menu Created Successfully!");
     }
-    public function getDataRole(){
+    public function getRole(){
         $menus = Roles::all();
         return response()->json($menus);
     }

@@ -59,7 +59,7 @@
 
         <div class="dropdown">
             <button class="btn btn-account" type="button" id="dropdownAccount" data-bs-toggle="dropdown" aria-expanded="false">
-                Eno Marozi <i class="fas fa-user-circle dark-icon"></i>
+                {{ Auth::user()->name }} <i class="fas fa-user-circle dark-icon"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -75,12 +75,17 @@
     <div class="sidebar-body">
         <ul class="nav flex-column">
             <div class="card-title">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
+                </li>
+            </div>
+            <div class="card-title">
                 <span class='text-muted'>Configuration</span>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('indexmenu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
+                    <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('indexrole') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
+                    <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>

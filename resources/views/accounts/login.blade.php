@@ -13,7 +13,7 @@
 	}
 </style>
 <body>
-<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="container d-flex justify-content-center align-items-center flex-column" style="height: 80vh;">
     <div class="card col-md-3 p-3 shadow">
         <img src="{{ asset('assets/images/unand.png')}}"> 
         <form action="{{ route('loginAction') }}" method="POST">
@@ -26,19 +26,21 @@
             </div>
             <button type="submit" class="btn btn-success w-100">Login</button>
         </form>
-        <div class="container d-flex justify-content-center align-items-center">
-            @if (session('success'))
-                <div class="text-success small mt-2 text-center w-100">
-                    {{ session('success') }}
-                </div>
-            @endif
-            
-            @if ($errors->has('error'))
-                <div class="text-danger small mt-2 text-center w-100">
-                    {{ $errors->first('error') }}
-                </div>
-            @endif
-        </div>
+    </div>
+    <div class="w-100 mt-2">
+        @if ($errors->has('error'))
+            <div class="text-danger small text-center">
+                {{ $errors->first('error') }}
+            </div>
+        @elseif (session('success'))
+            <div class="text-success small text-center">
+                {{ session('success') }}
+            </div>
+        @else
+            <div class="text-danger small text-center invisible">
+                Placeholder for error or success message
+            </div>
+        @endif
     </div>
 </div>
 </body>

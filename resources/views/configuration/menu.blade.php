@@ -2,24 +2,24 @@
 @section('content')
 <button class="btn btn-primary mb-3" onClick="modalAdd()">Add Menu</button>
 
-<div class="modal" id="myModal">
+<div class="modal" id="modalAdd">
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="text-center mb-2">
             <h4 id="titleModal"></h4>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('dataMenu') }}">
+            <form method="POST" action="{{ route('crudMenu') }}">
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
             	<div class="mb-3">
-            		<input id='name_' class='form-control' type="text" name="name" placeholder="Name" required>
+            		<input id='name_' class='form-control' type="text" name="name" placeholder="Name Menu" required>
             	</div>
             	<div class="mb-3">
-            		<input id='path_' class='form-control' type="text" name="path" placeholder="Path" required>
+            		<input id='path_' class='form-control' type="text" name="path" placeholder="URL/Path Menu" required>
             	</div>
             	<div class="mb-3">
-            		<input id='description_' class='form-control' type="text" name="description" placeholder="Description" required>
+            		<input id='description_' class='form-control' type="text" name="description" placeholder="Description">
             	</div>
             	<button id="submit_" type="submit" name="action" class="btn btn-primary w-100"></button>
             </form>
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="modal" id="myModalDel">
+<div class="modal" id="modalDel">
     <div class="modal-content">
         <span class="close" style="cursor: pointer;">&times;</span>
         <div class="text-center mb-2">
@@ -35,9 +35,9 @@
         </div>
         <div class="modal-body text-center">
             <p>Are you sure you want to delete this item? This action cannot be undone.</p>
-            <form method="POST" action="{{ route('dataMenu') }}">
+            <form method="POST" action="{{ route('crudMenu') }}">
                 @csrf
-                <input type="hidden" id="iddel" name="id">
+                <input type="hidden" id="idDel" name="id">
                 <div class="d-flex justify-content-between">
                     <button type="button" class="btn btn-secondary w-50" id="cancelButton">Cancel</button>
                     <button id="submit_" type="submit" name="action" value="DELETE" class="btn btn-danger w-50">Delete</button>
@@ -64,7 +64,7 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
-    fetch('{{ route("getDataMenu") }}')
+    fetch('{{ route("getMenu") }}')
     .then(response => response.json())
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
@@ -111,7 +111,7 @@
         btnSubmit.value = "SAVE"
 
         const span = document.getElementsByClassName("close")[0];
-        const modal = document.getElementById('myModal');
+        const modal = document.getElementById('modalAdd');
         modal.style.display = "block";
         span.onclick = function(){
             modal.style.display = "none";
@@ -141,7 +141,7 @@
         btnSubmit.value = "UPDATE"
 
         const span = document.getElementsByClassName("close")[0];
-        const modal = document.getElementById('myModal');
+        const modal = document.getElementById('modalAdd');
         modal.style.display = "block";
         span.onclick = function(){
             modal.style.display = "none";
@@ -161,8 +161,8 @@
     }
 
     function modalDelete(id) {
-        document.getElementById('iddel').value = id;
-        const modal = document.getElementById('myModalDel');
+        document.getElementById('idDel').value = id;
+        const modal = document.getElementById('modalDel');
         modal.style.display = "block";
 
         const span = document.getElementsByClassName("close")[1];

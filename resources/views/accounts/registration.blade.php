@@ -13,7 +13,7 @@
 	}
 </style>
 <body>
-<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="container d-flex justify-content-center align-items-center flex-column" style="height: 80vh;">
     <div class="card col-md-3 p-3 shadow">
         <img src="{{ asset('assets/images/unand.png')}}"> 
         <form action="{{ route('registrationAction') }}" method="POST">
@@ -35,13 +35,19 @@
             </div>
             <button type="submit" class="btn btn-success w-100">Registration</button>
         </form>
-        @if ($errors->any())
-            <div class="text-danger small mt-2 text-center w-100">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
+    </div>
+    <div class="w-100 mt-2">
+    @if ($errors->any())
+        <div class="text-danger small text-center">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @else
+        <div class="text-danger small text-center invisible">
+            Placeholder for error or success message
+        </div>
+    @endif
     </div>
     
 </div>

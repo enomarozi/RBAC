@@ -11,17 +11,20 @@ Route::GET('/logout',[AccountsController::class,'logout'])->name('logout');
 Route::GET('/registration',[AccountsController::class,'registration'])->name('registration');
 Route::POST('/registrationAction',[AccountsController::class,'registrationAction'])->name('registrationAction');
 
-Route::GET('/',[MenusController::class,'indexmenu'])->name("indexmenu");
-Route::POST('/dataMenu',[MenusController::class,'dataMenu'])->name('dataMenu');
-Route::GET('/getDataMenu',[MenusController::class,'getDataMenu'])->name("getDataMenu");
+Route::GET('/',[AccountsController::class,'index'])->name("index");
 
-Route::GET('/indexrole',[RolesController::class,'indexrole'])->name("indexrole");
-Route::POST('/datarole',[RolesController::class,'datarole'])->name('datarole');
-Route::GET('/getDataRole',[RolesController::class,'getDataRole'])->name("getDataRole");
+Route::group(['prefix' => 'configuration'], function () {
+	Route::GET('/menu',[MenusController::class,'menu'])->name('menu');
+	Route::POST('/crudMenu',[MenusController::class,'crudMenu'])->name('crudMenu');
+	Route::GET('/getMenu',[MenusController::class,'getMenu'])->name("getMenu");
+});
 
-Route::GET('/indexrole',[RolesController::class,'indexrole'])->name("indexrole");
-Route::POST('/datarole',[RolesController::class,'datarole'])->name('datarole');
-Route::GET('/getDataRole',[RolesController::class,'getDataRole'])->name("getDataRole");
+Route::group(['prefix' => 'configuration'], function () {
+	Route::GET('/role',[RolesController::class,'role'])->name("role");
+	Route::POST('/crudRole',[RolesController::class,'crudRole'])->name('crudRole');
+	Route::GET('/getRole',[RolesController::class,'getRole'])->name("getRole");
+});
+
 
 Route::GET('/indexpermission',[PermissionsController::class,'indexpermission'])->name("indexpermission");
 Route::POST('/datapermission',[PermissionsController::class,'datapermission'])->name('datapermission');

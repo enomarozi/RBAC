@@ -7,14 +7,14 @@ use App\Models\Menus;
 
 class MenusController extends Controller
 {
-    public function indexmenu(){
+    public function menu(){
         return view('configuration/menu');
     }
-    public function dataMenu(Request $request){
+    public function crudMenu(Request $request){
         if($request->action == "DELETE"){
             $menu = Menus::findOrFail($request->id);
             $menu->delete();
-            return redirect()->route('indexmenu')->with('success', 'Menu deleted successfully!');
+            return redirect()->back()->withErrors(['success' => 'Menu Deleted successfully!']);
         }
         $validasi = $request->validate([
             'name'=>'required|max:30',
@@ -30,7 +30,7 @@ class MenusController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
-            return redirect()->route('indexmenu')->with('success', 'Menu add successfully!');
+            return redirect()->back()->withErrors(['success' => 'Menu Created successfully!']);
         }elseif($request->action == "UPDATE"){
             $menu = Menus::findOrFail($request->id);
             $menu->update([
@@ -39,11 +39,10 @@ class MenusController extends Controller
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);
-            return redirect()->route('indexmenu')->with('success', 'Menu update successfully!');
+            return redirect()->back()->withErrors(['success' => 'Menu Update successfully!']);
         }
-        return redirect()->route('indexmenu')->with('success',"Menu Created Successfully!");
     }
-    public function getDataMenu(){
+    public function getMenu(){
         $menus = Menus::all();
         return response()->json($menus);
     }
