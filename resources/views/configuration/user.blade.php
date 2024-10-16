@@ -2,14 +2,14 @@
 @section('content')
 <button class="btn btn-primary mb-3" onClick="modalAdd()">Add User</button>
 
-<div class="modal" id="myModal">
+<div class="modal" id="modalAdd">
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="text-center mb-2">
             <h4 id="titleModal">Add User</h4>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('add_user_action') }}">
+            <form method="POST" action="{{ route('crudUser') }}">
                 @csrf
                 <div class="mb-3">
                     <input id='name_' class='form-control' type="text" name="name" placeholder="Full Name" required>
@@ -36,7 +36,6 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>ID</th>
             <th>Full Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -49,7 +48,7 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
-    fetch('{{ route("userData") }}')
+    fetch('{{ route("getUser") }}')
     .then(response => response.json())
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
@@ -61,10 +60,6 @@
             noCell.textContent += autoIncrementId;
             row.appendChild(noCell);
             autoIncrementId++;
-
-            const idCell = document.createElement('td');
-            idCell.textContent = menu.id;   
-            row.appendChild(idCell);
 
             const nameCell = document.createElement('td');
             nameCell.textContent = menu.name;
@@ -93,14 +88,12 @@
         const btnSubmit = document.getElementById("submit_");
 
         const span = document.getElementsByClassName("close")[0];
-        const modal = document.getElementById('myModal');
+        const modal = document.getElementById('modalAdd');
         modal.style.display = "block";
         span.onclick = function(){
             modal.style.display = "none";
         }
         
-        const titleModal = document.getElementById("titleModal");
-
         window.onclick = function(event){
             if(event.target === modal){
                 modal.style.display = "none";

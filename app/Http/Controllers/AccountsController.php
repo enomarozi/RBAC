@@ -49,10 +49,10 @@ class AccountsController extends Controller
             return redirect()->route('login')->with('success', 'User registered successfully.');
         }
     }
-    public function add_user(){
+    public function user(){
         return view('configuration/user');
     }
-    public function add_user_action(Request $request){
+    public function crudUser(Request $request){
         $validasi = $request->validate([
             'name'=>'required|min:3|max:40',
             'username'=>'required|min:3|max:30',
@@ -71,10 +71,10 @@ class AccountsController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->back();
+            return redirect()->back()->withErrors(['success' => 'User Created successfully.']);
         }
     }
-    public function userData(){
+    public function getUser(){
         $users = User::all();
         return response()->json($users);
     }

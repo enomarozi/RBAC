@@ -35,6 +35,7 @@ class RolesController extends Controller
         }elseif($request->action == "UPDATE"){
             $menu = Roles::findOrFail($request->id);
             $menu->update([
+                'path'=>$request->path,
                 'name' => $request->name,
                 'description' => $request->description,
                 'updated_at' => now(),

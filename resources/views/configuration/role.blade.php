@@ -16,7 +16,7 @@
                     <select id='path_' class="form-select" aria-label="Default select example" name='path'>
                         <option value="" selected disabled hidden>--- Choose Path ---</option>
                         @foreach($menus as $menu)
-                            <option value="{{$menu->name}}">{{ $menu->path }}</option>
+                            <option value="{{ $menu->path }}">{{ $menu->path }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -77,9 +77,9 @@
         let autoIncrementId = 1;
         data.forEach(menu => {
             const row = document.createElement('tr');
-            const idCell = document.createElement('td');
-            idCell.textContent += autoIncrementId;
-            row.appendChild(idCell);
+            const noCell = document.createElement('td');
+            noCell.textContent += autoIncrementId;
+            row.appendChild(noCell);
             autoIncrementId++;
 
             const pathCell = document.createElement('td');

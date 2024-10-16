@@ -50,7 +50,7 @@
 <table id="menus-table" class="display table table-striped table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Name</th>
             <th>Path</th>
             <th>Description</th>
@@ -69,11 +69,13 @@
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
         tbody.innerHTML = '';
+        let autoIncrementId = 1;
         data.forEach(menu => {
             const row = document.createElement('tr');
-            const idCell = document.createElement('td');
-            idCell.textContent = menu.id;
-            row.appendChild(idCell);
+            const noCell = document.createElement('td');
+            noCell.textContent += autoIncrementId;
+            row.appendChild(noCell);
+            autoIncrementId++;
 
             const nameCell = document.createElement('td');
             nameCell.textContent = menu.name;

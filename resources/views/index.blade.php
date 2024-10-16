@@ -91,7 +91,7 @@
                     <a class="nav-link dropdown-toggle fas fa-user-lock" href="{{ route('indexpermission') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Permission</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('add_user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
+                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('indexroleAccess') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
