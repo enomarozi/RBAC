@@ -27,7 +27,7 @@ class AccessRoleController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Menu Created successfully!']);
+            return redirect()->back()->withSuccess('Access Role Created successfully!');
 
         }elseif($request->action == "UPDATE"){
             $access_role = AccessRole::findOrFail($request->id);
@@ -37,9 +37,9 @@ class AccessRoleController extends Controller
                 'permission'=>$request->permission,
                 'updated_at' => now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Menu Updated successfully!']);
+            return redirect()->back()->withSuccess('Access Role Updated successfully!');
         }
-
+        return redirect()->back()->withErrors(['error' => 'Action failed. Please try again.']);
     }
     public function getAccessRole(){
         $ars = AccessRole::all();

@@ -14,7 +14,7 @@ class MenusController extends Controller
         if($request->action == "DELETE"){
             $menu = Menus::findOrFail($request->id);
             $menu->delete();
-            return redirect()->back()->withErrors(['success' => 'Menu Deleted successfully!']);
+            return redirect()->back()->withSuccess('Menu Deleted successfully!');
         }
         $validasi = $request->validate([
             'name'=>'required|max:30',
@@ -30,7 +30,7 @@ class MenusController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Menu Created successfully!']);
+            return redirect()->back()->withSuccess('Menu Created successfully!');
         }elseif($request->action == "UPDATE"){
             $menu = Menus::findOrFail($request->id);
             $menu->update([
@@ -39,8 +39,9 @@ class MenusController extends Controller
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Menu Updated successfully!']);
+            return redirect()->back()->withSuccess('Menu Updated successfully!');
         }
+        return redirect()->back()->withErrors(['error' => 'Action failed. Please try again.']);
     }
     public function getMenu(){
         $menus = Menus::all();

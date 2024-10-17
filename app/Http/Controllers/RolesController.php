@@ -15,7 +15,7 @@ class RolesController extends Controller
         if($request->action == "DELETE"){
             $roles = Roles::findOrFail($request->id);
             $roles->delete();
-            return redirect()->back()->withErrors(['success' => 'Role Deleted successfully!']);
+            return redirect()->back()->withSuccess('Role Deleted successfully!');
         }
         $validasi = $request->validate([
             'path'=>'required|max:50',
@@ -31,7 +31,7 @@ class RolesController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Role Created successfully!']);
+            return redirect()->back()->withSuccess('Role Created successfully!');
         }elseif($request->action == "UPDATE"){
             $roles = Roles::findOrFail($request->id);
             $roles->update([
@@ -40,8 +40,9 @@ class RolesController extends Controller
                 'description' => $request->description,
                 'updated_at' => now(),
             ]);
-            return redirect()->back()->withErrors(['success' => 'Role Updated successfully!']);
+            return redirect()->back()->withSuccess('Role Updated successfully!');
         }
+        return redirect()->back()->withErrors(['error' => 'Action failed. Please try again.']);
     }
     public function getRole(){
         $menus = Roles::all();

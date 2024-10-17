@@ -47,7 +47,7 @@ class AccountsController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->route('login')->with('success', 'User registered successfully.');
+            return redirect()->route('login')->withSuccess('User registered successfully.');
         }
     }
     public function profile(){
@@ -67,12 +67,20 @@ class AccountsController extends Controller
         return view('accounts/setting');
     }
     public function passwordAction(Request $request){
-        dd($request->all());
         $validasi = $request->validate([
             'oldpassword'=>'required|min:8',
             'newpassword'=>'required|min:8',
             'confirmpassword'=>'required|min:8|same:newpassword',
         ]);
+        if(Hash::check($request->oldpassword,Auth::user()->password)){
+            $user = User::findOrFail(Auth::user()->id);
+            $user->update([
+                'password' => Hash::make($request->confirmpassword),
+                'updated_at' => now(),
+            ]);
+            return redirect()->back()->withSuccess('Password has been successfully changed.');
+        }
+        return redirect()->back()->withErrors(['error' => 'Password change failed. Please try again.']);
         
     }
     public function user(){
@@ -97,7 +105,7 @@ class AccountsController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->back()->withErrors(['success' => 'User Created successfully.']);
+            return redirect()->back()->withSuccess('User Created successfully.');
         }
     }
     public function getUser(){
@@ -106,6 +114,6 @@ class AccountsController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect('/login');
+        return redirect('account/login');
     }
 }

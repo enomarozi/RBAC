@@ -110,6 +110,10 @@
             <p>{{ $error }}</p>
         @endforeach
     </div>
+@elseif(session('success'))
+    <div class="text-success small mt-2 text-center w-100">
+        {{ session('success') }}
+    </div>
 @endif
 </div>
 <script>
