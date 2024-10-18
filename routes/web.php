@@ -20,24 +20,18 @@ Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administ
 	Route::GET('/menu',[MenusController::class,'menu'])->name('menu');
 	Route::POST('/crudMenu',[MenusController::class,'crudMenu'])->name('crudMenu');
 	Route::GET('/getMenu',[MenusController::class,'getMenu'])->name("getMenu");
-});
 
-Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
 	Route::GET('/role',[RolesController::class,'role'])->name("role");
 	Route::POST('/crudRole',[RolesController::class,'crudRole'])->name('crudRole');
 	Route::GET('/getRole',[RolesController::class,'getRole'])->name("getRole");
-});
 
-Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
 	Route::GET('/user',[AccountsController::class,'user'])->name("user");
 	Route::POST('/crudUser',[AccountsController::class,'crudUser'])->name("crudUser");
 	Route::GET('/getUser',[AccountsController::class,'getUser'])->name("getUser");
-});
 
-Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
 	Route::GET('/access_role',[AccessRoleController::class,'access_role'])->name('access_role');
 	Route::POST('/crudAccessRole',[AccessRoleController::class,'crudAccessRole'])->name('crudAccessRole');
 	Route::GET('/getAccessRole',[AccessRoleController::class,'getAccessRole'])->name('getAccessRole');
 });
 
-Route::GET('/test2',[AccountsController::class,'test']);
+Route::GET('/test',[AccountsController::class,'test']);

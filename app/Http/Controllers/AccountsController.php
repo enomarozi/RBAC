@@ -117,6 +117,6 @@ class AccountsController extends Controller
         return redirect('account/login');
     }
     public function test(){
-        return view('test2');
+        return view('test');
     }
 }

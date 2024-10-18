@@ -16,11 +16,9 @@ class RoleMiddleware
 
         $user = Auth::user();
 
-        $userRole = AccessRole::where('user', $user->id)->pluck('role')->first();
+        $userRole = AccessRole::where('user', $user->username)->pluck('role')->first();
 
-        dd($userRole, $roles); 
-
-        if (!in_array($userRole, $roles)) {
+        if ($userRole !== $roles) {
             return redirect()->back()->withErrors(['role' => 'You do not have permission to access this resource.']);
         }
 

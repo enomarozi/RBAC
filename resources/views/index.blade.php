@@ -96,26 +96,34 @@
     <div class="sidebar-body">
         <img class="logo" id="sidebarLogo" src="{{ asset('assets/images/unand-f.png') }}" alt="Logo">
         <ul class="nav flex-column">
-            <div class="card-title">
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
-                </li>
-            </div>
-            <div class="card-title">
-                <span class='text-light' style="color: white;">Configuration</span>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
-                </li>                
-            </div>
+            @php
+                $user = Auth::user();
+                $role = DB::table('access_roles')
+                        ->where('user', $user->username)
+                        ->pluck('role');
+            @endphp
+            @if($role[0] === "administrator")
+                <div class="card-title">
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
+                    </li>
+                </div>
+                <div class="card-title">
+                    <span class='text-light' style="color: white;">Configuration</span>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
+                    </li>                
+                </div>
+            @endif
             <div class="card-title">
                 <span class='text-light'>Content</span>
             </div>
