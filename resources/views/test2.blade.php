@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Dashboard</title>
-	<link rel="icon" type="image/x-icon" href="{{ asset('assets/images/unand-sm.png') }}">
-	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
-	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
-	<!-- Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-	<link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/unand-sm.png') }}">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
+    <!-- Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
 </head>
 <style>
     .modal {
@@ -44,35 +44,20 @@
         cursor: pointer;
     }
     .topbar{
-        background-color: #d6dde5;
-    }
-    .sidebar{
-        background-color: #3a4750;
+        background-color: white;
     }
     .card-title{
-        background-color: #5a6873;
+        background-color: #0a0e12;
     }
     .nav-link{
         color: white;
-        background-color: #3a4750;
-    }
-    .content{
-        background-color: white;
-    }
-    .content-detail{
-        background-color: #f0f4f7;
-        padding: 1%;
-        margin: 5px;
-        border-radius: 5px;
+        background-color: black;
     }
 </style>
 <body>
 
 <nav class="navbar topbar">
     <div class="btn-close-sidebar">        
-        <div class="d-flex" style="height: 70px;">
-            <div class="vr"></div>
-        </div>
         <button class="btn btn-custom" id="sidebarMinimize" aria-label="Minimize sidebar">
             <img src="{{ asset('assets/images/menu.png') }}" alt="Toggle">
         </button>
@@ -102,7 +87,7 @@
                 </li>
             </div>
             <div class="card-title">
-                <span class='text-light' style="color: white;">Configuration</span>
+                <span class='text-muted text-custom'>Configuration</span>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
                 </li>
@@ -117,28 +102,15 @@
                 </li>                
             </div>
             <div class="card-title">
-                <span class='text-light'>Content</span>
+                <span class='text-muted'>Content</span>
             </div>
         </ul>
     </div>
 </div>
 <div class="content" id="content">
-    <div class='content-detail'>
-        <script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script>
-        <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
-        @yield('content')
-        @if ($errors->any())
-            <div class="text-danger small mt-2 text-center w-100">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @elseif(session('success'))
-            <div class="text-success small mt-2 text-center w-100">
-                {{ session('success') }}
-            </div>
-        @endif
-    </div>
+<script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
+
 </div>
 <script>
     document.getElementById("sidebarMinimize").addEventListener("click", function(){
@@ -147,7 +119,7 @@
         const logo = document.getElementById("sidebarLogo");
 
         var navLinks = document.querySelectorAll('.nav-link');
-        var subTitle = document.querySelectorAll('.text-light');
+        var subTitle = document.querySelectorAll('.text-muted');
 
         if (!document.getElementById("sidebar").classList.contains("collapsed")) {
             navLinks.forEach(function(link) {

@@ -116,4 +116,7 @@ class AccountsController extends Controller
         Auth::logout();
         return redirect('account/login');
     }
+    public function test(){
+        return view('test2');
+    }
 }

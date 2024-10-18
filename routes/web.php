@@ -16,7 +16,7 @@ Route::group(['prefix' => 'account'], function () {
 	Route::POST('/passwordAction',[AccountsController::class,'passwordAction'])->middleware('auth')->name('passwordAction');
 });
 
-Route::group(['prefix' => 'configuration','middleware' => ['auth',]], function () {
+Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administrator']], function () {
 	Route::GET('/menu',[MenusController::class,'menu'])->name('menu');
 	Route::POST('/crudMenu',[MenusController::class,'crudMenu'])->name('crudMenu');
 	Route::GET('/getMenu',[MenusController::class,'getMenu'])->name("getMenu");
@@ -40,8 +40,4 @@ Route::group(['prefix' => 'configuration','middleware' => 'auth'], function () {
 	Route::GET('/getAccessRole',[AccessRoleController::class,'getAccessRole'])->name('getAccessRole');
 });
 
-Route::group(['middleware' => 'test'], function () {
-    Route::get('/test', function () {
-        return 'Test Route';
-    });
-});
+Route::GET('/test2',[AccountsController::class,'test']);

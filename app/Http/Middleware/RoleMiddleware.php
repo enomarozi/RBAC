@@ -8,7 +8,7 @@ use App\Models\AccessRole;
 
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, ...$roles)
+    public function handle($request, Closure $next, $roles)
     {
         if (!Auth::check()) {
             return redirect()->route('login'); 
