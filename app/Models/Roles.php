@@ -13,7 +13,6 @@ class Roles extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'path',
         'name',
         'description',
         'created_at',

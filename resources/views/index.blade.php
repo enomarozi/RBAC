@@ -111,10 +111,10 @@
                 <div class="card-title">
                     <span class='text-light' style="color: white;">Configuration</span>
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
+                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
+                        <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
@@ -123,6 +123,8 @@
                         <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                     </li>                
                 </div>
+            @elseif($role[0] === "dti")
+                dd(123);
             @endif
             <div class="card-title">
                 <span class='text-light'>Content</span>

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('role');
+            $table->string('content');
             $table->string('path');
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

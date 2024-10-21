@@ -13,15 +13,11 @@ class RoleMiddleware
         if (!Auth::check()) {
             return redirect()->route('login'); 
         }
-
         $user = Auth::user();
-
         $userRole = AccessRole::where('user', $user->username)->pluck('role')->first();
-
         if ($userRole !== $roles) {
             return redirect()->back()->withErrors(['role' => 'You do not have permission to access this resource.']);
         }
-
         return $next($request);
     }
 }

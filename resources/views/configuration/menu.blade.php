@@ -13,13 +13,18 @@
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
             	<div class="mb-3">
-            		<input id='name_' class='form-control' type="text" name="name" placeholder="Name Menu" required>
-            	</div>
+                    <select id='role_' class="form-select" aria-label="Default select example" name='role'>
+                        <option value="" selected disabled hidden>--- Choose Role ---</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input id='content_' class='form-control' type="text" name="content" placeholder="Content Name" required>
+                </div>
             	<div class="mb-3">
             		<input id='path_' class='form-control' type="text" name="path" placeholder="URL/Path Menu" required>
-            	</div>
-            	<div class="mb-3">
-            		<input id='description_' class='form-control' type="text" name="description" placeholder="Description">
             	</div>
             	<button id="submit_" type="submit" name="action" class="btn btn-primary w-100"></button>
             </form>
@@ -51,9 +56,9 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Path</th>
-            <th>Description</th>
+            <th>Role</th>
+            <th>Content Name</th>
+            <th>URL/Path Menu</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -75,21 +80,21 @@
             row.appendChild(noCell);
             autoIncrementId++;
 
-            const nameCell = document.createElement('td');
-            nameCell.textContent = menu.name;
-            row.appendChild(nameCell);
+            const roleCell = document.createElement('td');
+            roleCell.textContent = menu.role;
+            row.appendChild(roleCell);
+
+            const contentCell = document.createElement('td');
+            contentCell.textContent = menu.content;
+            row.appendChild(contentCell);
 
             const pathCell = document.createElement('td');
             pathCell.textContent = menu.path;
             row.appendChild(pathCell);
 
-            const descriptionCell = document.createElement('td');
-            descriptionCell.textContent = menu.description;
-            row.appendChild(descriptionCell);
-
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.name}", "${menu.path}", "${menu.description}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalEdit(${menu.id},"${menu.role}", "${menu.content}", "${menu.path}")' class="btn btn-xs btn-success">Edit</button>
                 <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
@@ -102,9 +107,9 @@
 <script type="text/javascript">
     function modalAdd(){
         document.getElementById('id_').value='';
-        document.getElementById('name_').value='';
+        document.getElementById('role_').value='';
+        document.getElementById('content_').value='';
         document.getElementById('path_').value='';
-        document.getElementById('description_').value='';
 
         const btnSubmit = document.getElementById("submit_");
         btnSubmit.textContent = "Save"
@@ -130,11 +135,11 @@
         }
     }
 
-    function modalEdit(id,name,path,description){
+    function modalEdit(id,role,content,path){
         document.getElementById('id_').value=id;
-        document.getElementById('name_').value=name;
+        document.getElementById('role_').value=role;
+        document.getElementById('content_').value=content;
         document.getElementById('path_').value=path;
-        document.getElementById('description_').value=description;
 
         const btnSubmit = document.getElementById("submit_");
         btnSubmit.textContent = "Update"

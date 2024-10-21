@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Menus;
+use App\Models\{Menus,Roles};
 
 class MenusController extends Controller
 {
     public function menu(){
-        return view('configuration/menu');
+        $roles = Roles::all();
+        return view('configuration/menu',compact('roles'));
     }
     public function crudMenu(Request $request){
         if($request->action == "DELETE"){
@@ -17,16 +18,16 @@ class MenusController extends Controller
             return redirect()->back()->withSuccess('Menu Deleted successfully!');
         }
         $validasi = $request->validate([
-            'name'=>'required|max:30',
-            'path'=>'required|max:30',
-            'description'=>'max:100',
+            'role'=>'required|max:30',
+            'content'=>'required|max:30',
+            'path'=>'max:30',
             'action'=>'required|max:6',
         ]);
         if($request->action == "SAVE"){
             Menus::create([
-                'name' => $request->name,
-                'path' => $request->path,
-                'description'=> $request->description,
+                'role' => $request->role,
+                'content' => $request->content,
+                'path'=> $request->path,
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
@@ -34,9 +35,9 @@ class MenusController extends Controller
         }elseif($request->action == "UPDATE"){
             $menu = Menus::findOrFail($request->id);
             $menu->update([
-                'name' => $request->name,
+                'role' => $request->role,
+                'content' => $request->content,
                 'path' => $request->path,
-                'description' => $request->description,
                 'updated_at' => now(),
             ]);
             return redirect()->back()->withSuccess('Menu Updated successfully!');

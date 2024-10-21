@@ -13,9 +13,9 @@ class Menus extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
+        'role',
+        'content',
         'path',
-        'name',
-        'description',
         'created_at',
         'updated_at',
     ];

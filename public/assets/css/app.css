@@ -52,12 +52,11 @@
     width: 250px;
     height: 100%;
     z-index: 11;
-    transition: width 0.2s ease;
+    transition: width 0.3s ease;
     overflow-y: auto;
 }
 .logo {
     max-height: 50px;
-    margin-right: 40px;
     margin-bottom: 10px;
 }
 .sidebar.collapsed {
