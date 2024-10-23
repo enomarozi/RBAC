@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth,Password,Validator};
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\{User,Roles};
+use App\Mail\SendEmail;
 use Hash;
 use Mail;
 use DB;
@@ -63,30 +64,43 @@ class AccountsController extends Controller
         return view('accounts/forgotpassword');
     }
     public function forgotpasswordAction(Request $request){
-        $request->validate([
-            'username'=>'required|exists:users',
+        $data = $request->only('username');
+        $validator = Validator::make($data,[
+            'username'=>'required|string',
         ]);
 
-        $user = User::where('email',$request->username)
-                    ->orWhere('username',$request->username)
+        if($validator->fails()){
+            $validator = Validator::make($data,[
+                'username'=>'required|string|',
+            ]);
+            if($validator->fails()){
+                return redirect()->back()->withError(['error'=>'Email/Username not found.']);
+            }
+        }
+        $user = User::where('username', $request->username)
+                    ->orWhere('email', $request->username)
                     ->first();
 
-        if(!$user){
-            
-        }
-        $token = Str::random(24);
-        dd($user);
+
+        $token = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 3)), 0, 32);
+
         DB::table('password_reset_tokens')->insert([
-            'email'=>$request->username,
+            'email'=>$user->email,
             'token'=>$token,
             'created_at'=>Carbon::now()
         ]);
-        Mail::send('emails.reset_password',['token'=>$token],function($message) use($request){
-            $message->to($request->username);
-            $message->subject('Reset Password');
-        });
-        return redirect()->back()->withSuccess(['success'=>'User registered successfully.']);
+        $details = [
+            'title'=>'Reset Password',
+            'email'=>$user->email,
+            'body'=>'unand.ac.id/'.$token,
+        ];
+        Mail::to($user->email)->send(new SendEmail($details));
+        return redirect()->route('forgotpassword');
 
+    }
+    public function showResetPasswordForm($token)
+    {
+        return view('account/reset_password', ['token' => $token]);
     }
     public function profile(){
         $user = Auth::user();

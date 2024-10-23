@@ -13,9 +13,8 @@ Route::group(['prefix' => 'account'], function () {
 	Route::POST('/registrationAction',[AccountsController::class,'registrationAction'])->name('registrationAction');
 	Route::GET('/forgotpassword',[AccountsController::class,'forgotpassword'])->name('forgotpassword');
 	Route::POST('/forgotpasswordAction',[AccountsController::class,'forgotpasswordAction'])->name('forgotpasswordAction');
-	Route::GET('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 
-	Route::POST('/password/email', [AccountsController::class, 'sendResetLink'])->name('password.email');
+	Route::get('/reset-password/{token}', [AccountsController::class, 'showResetPasswordForm'])->name('reset.password.get');
 
 	Route::GET('/profile',[AccountsController::class,'profile'])->middleware('auth')->name('profile');
 	Route::GET('/setting',[AccountsController::class,'setting'])->middleware('auth')->name('setting');
