@@ -64,38 +64,30 @@ class AccountsController extends Controller
         return view('accounts/forgotpassword');
     }
     public function forgotpasswordAction(Request $request){
-        $data = $request->only('username');
-        $validator = Validator::make($data,[
-            'username'=>'required|string',
+        $request->validate([
+            'username' => 'required|string',
         ]);
 
-        if($validator->fails()){
-            $validator = Validator::make($data,[
-                'username'=>'required|string|',
-            ]);
-            if($validator->fails()){
-                return redirect()->back()->withError(['error'=>'Email/Username not found.']);
-            }
+        $user = User::where('email', $request->username)
+                ->orWhere('username', $request->username)
+                ->first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'User not found.']);
         }
-        $user = User::where('username', $request->username)
-                    ->orWhere('email', $request->username)
-                    ->first();
 
 
-        $token = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 3)), 0, 32);
+        $token = Str::random(60);
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            ['token' => $token, 'created_at' => Carbon::now()]
+        );
 
-        DB::table('password_reset_tokens')->insert([
-            'email'=>$user->email,
-            'token'=>$token,
-            'created_at'=>Carbon::now()
-        ]);
-        $details = [
-            'title'=>'Reset Password',
-            'email'=>$user->email,
-            'body'=>'unand.ac.id/'.$token,
-        ];
-        Mail::to($user->email)->send(new SendEmail($details));
-        return redirect()->route('forgotpassword');
+        Mail::send('emails.reset_password', ['token' => $token], function($message) use($user) {
+            $message->to($user->email);
+            $message->subject('Reset Password');
+        });
+        return back()->with('success', 'We have e-mailed your password reset link!');
 
     }
     public function showResetPasswordForm($token)
