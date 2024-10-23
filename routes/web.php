@@ -11,6 +11,12 @@ Route::group(['prefix' => 'account'], function () {
 	Route::GET('/logout',[AccountsController::class,'logout'])->name('logout');
 	Route::GET('/registration',[AccountsController::class,'registration'])->name('registration');
 	Route::POST('/registrationAction',[AccountsController::class,'registrationAction'])->name('registrationAction');
+	Route::GET('/forgotpassword',[AccountsController::class,'forgotpassword'])->name('forgotpassword');
+	Route::POST('/forgotpasswordAction',[AccountsController::class,'forgotpasswordAction'])->name('forgotpasswordAction');
+	Route::GET('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+	Route::POST('/password/email', [AccountsController::class, 'sendResetLink'])->name('password.email');
+
 	Route::GET('/profile',[AccountsController::class,'profile'])->middleware('auth')->name('profile');
 	Route::GET('/setting',[AccountsController::class,'setting'])->middleware('auth')->name('setting');
 	Route::POST('/passwordAction',[AccountsController::class,'passwordAction'])->middleware('auth')->name('passwordAction');

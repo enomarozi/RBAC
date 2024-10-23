@@ -5,39 +5,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<link rel="icon" href="{{ asset('assets/images/unand-sm.png') }}" type="image/x-icon">
-	<title>Login</title>
+	<title>Reset Password</title>
 </head>
 <style type="text/css">
-	form{
-		margin-top: 20px;
-	}
+    form{
+        margin-top: 20px;
+    }
 </style>
 <body>
 <div class="container d-flex justify-content-center align-items-center flex-column" style="height: 80vh;">
     <div class="card col-md-3 p-3 shadow">
         <img src="{{ asset('assets/images/unand.png')}}"> 
-        <form action="{{ route('loginAction') }}" method="POST">
+        <form action="{{ route('forgotpasswordAction') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                <input type="text" name="user" class="form-control" placeholder="Email/Username" required>
             </div>
-            <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-            </div>
-            <div class="d-flex justify-content-between mb-3 small">
-                <div>
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Keep Me Logged In</label>
-                </div>
-                <div>
-                    <a href="{{ route('forgotpassword') }}" class="text-decoration-none">Forgot Password?</a>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Login</button>
+            <button type="submit" class="btn btn-success w-100">Send Password Reset Link</button>
             <div class="mt-3 text-center">
                 <small>
-                    Don't have an account? 
-                    <a href="{{ route('registration') }}" class="text-decoration-none">Sign up</a>
+                    <a href="{{ route('login') }}" class="text-decoration-none text-primary fw-bold">&lt;&lt; Back to login</a>
                 </small>
             </div>
         </form>

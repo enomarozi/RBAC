@@ -34,6 +34,12 @@
                 <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
             </div>
             <button type="submit" class="btn btn-success w-100">Registration</button>
+            <div class="mt-3 text-center">
+                <small>
+                    Have already an account ?
+                    <a href="{{ route('login') }}" class="text-decoration-none">Login Here</a>
+                </small>
+            </div>
         </form>
     </div>
     <div class="w-100 mt-2">

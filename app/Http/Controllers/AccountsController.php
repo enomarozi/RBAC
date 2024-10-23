@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{User,Roles};
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\{User,Roles};
 use Hash;
+use Mail;
 use DB;
 
 class AccountsController extends Controller
@@ -19,7 +22,13 @@ class AccountsController extends Controller
         return view('accounts/login');
     }
     public function loginAction(Request $request){
-        if (Auth::attempt($request->only('username', 'password'))) {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $remember = $request->has('remember');
+        if (Auth::attempt($request->only('username', 'password'), $remember)) {
             return redirect()->route('index');
         }
         return redirect()->back()->withErrors(['error' => 'Username or Password is incorrect.']);
@@ -49,6 +58,35 @@ class AccountsController extends Controller
             $user->save();
             return redirect()->route('login')->withSuccess('User registered successfully.');
         }
+    }
+    public function forgotpassword(){
+        return view('accounts/forgotpassword');
+    }
+    public function forgotpasswordAction(Request $request){
+        $request->validate([
+            'username'=>'required|exists:users',
+        ]);
+
+        $user = User::where('email',$request->username)
+                    ->orWhere('username',$request->username)
+                    ->first();
+
+        if(!$user){
+            
+        }
+        $token = Str::random(24);
+        dd($user);
+        DB::table('password_reset_tokens')->insert([
+            'email'=>$request->username,
+            'token'=>$token,
+            'created_at'=>Carbon::now()
+        ]);
+        Mail::send('emails.reset_password',['token'=>$token],function($message) use($request){
+            $message->to($request->username);
+            $message->subject('Reset Password');
+        });
+        return redirect()->back()->withSuccess(['success'=>'User registered successfully.']);
+
     }
     public function profile(){
         $user = Auth::user();
