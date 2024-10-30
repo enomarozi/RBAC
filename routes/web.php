@@ -39,4 +39,7 @@ Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administ
 	Route::GET('/getAccessRole',[AccessRoleController::class,'getAccessRole'])->name('getAccessRole');
 });
 
-Route::GET('/test',[AccountsController::class,'test']);
+Route::group(['prefix' => 'dti','middleware' => ['auth','role:dti']], function () {
+	Route::GET('/data',[MenusController::class,'menu'])->name('dti.data');
+	Route::GET('/admin',[MenusController::class,'menu'])->name('admin.dti');
+});

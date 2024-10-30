@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('role');
             $table->string('content');
-            $table->string('path');
+            $table->string('route_name');
+            $table->string('ordered');
+            $table->string('icon');
             $table->timestamps();
         });
     }

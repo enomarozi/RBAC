@@ -15,7 +15,9 @@ class Menus extends Model
     protected $fillable = [
         'role',
         'content',
-        'path',
+        'route_name',
+        'ordered',
+        'icon',
         'created_at',
         'updated_at',
     ];

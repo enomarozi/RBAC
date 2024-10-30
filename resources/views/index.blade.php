@@ -103,32 +103,41 @@
                         ->pluck('role');
             @endphp
             @if($role[0] === "administrator")
-                <div class="card-title">
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
-                    </li>
-                </div>
-                <div class="card-title">
-                    <span class='text-light' style="color: white;">Configuration</span>
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
-                    </li>                
-                </div>
-            @elseif($role[0] === "dti")
-                dd(123);
+            <div class="card-title">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
+                </li>
+            </div>
+            <div class="card-title">
+                <span class='text-light' style="color: white;">Configuration</span>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
+                </li>                
+            </div>
             @endif
             <div class="card-title">
-                <span class='text-light'>Content</span>
-            </div>
+                <span class='text-light' style="color: white;">Data</span>
+                @php
+                $menus = DB::table('menus')
+                            ->where('role', $role[0])
+                            ->orderBy('ordered', 'asc')
+                            ->get();
+                @endphp
+                @foreach($menus as $menu)
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle {{$menu->icon}}" href="{{ route($menu->route_name) }}" role="button" aria-expanded="true" aria-controls="submenu1"> {{$menu->content}}</a>
+                </li>
+                @endforeach
+            </div>  
         </ul>
     </div>
 </div>

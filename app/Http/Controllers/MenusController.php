@@ -20,14 +20,18 @@ class MenusController extends Controller
         $validasi = $request->validate([
             'role'=>'required|max:30',
             'content'=>'required|max:30',
-            'path'=>'max:30',
+            'route_name'=>'required|max:40',
+            'ordered'=>'required|max:2',
+            'icon'=>'required',
             'action'=>'required|max:6',
         ]);
         if($request->action == "SAVE"){
             Menus::create([
                 'role' => $request->role,
                 'content' => $request->content,
-                'path'=> $request->path,
+                'route_name'=> $request->route_name,
+                'ordered'=> $request->ordered,
+                'icon'=> $request->icon,
                 'created_at'=>now(),
                 'updated_at'=>now(),
             ]);
@@ -37,7 +41,9 @@ class MenusController extends Controller
             $menu->update([
                 'role' => $request->role,
                 'content' => $request->content,
-                'path' => $request->path,
+                'route_name' => $request->route_name,
+                'ordered'=> $request->ordered,
+                'icon'=> $request->icon,
                 'updated_at' => now(),
             ]);
             return redirect()->back()->withSuccess('Menu Updated successfully!');
