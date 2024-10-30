@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Menus,Roles};
+use App\Models\{Menus,Roles,ParentMenu};
 
 class MenusController extends Controller
 {
     public function menu(){
-        $roles = Roles::all();
-        return view('configuration/menu',compact('roles'));
+        $parents = ParentMenu::all();
+        return view('configuration/menu',compact('parents'));
     }
     public function crudMenu(Request $request){
         if($request->action == "DELETE"){
@@ -19,6 +19,7 @@ class MenusController extends Controller
         }
         $validasi = $request->validate([
             'role'=>'required|max:30',
+            'parent_name'=>'required|max:30',
             'content'=>'required|max:30',
             'route_name'=>'required|max:40',
             'ordered'=>'required|max:2',
@@ -28,6 +29,7 @@ class MenusController extends Controller
         if($request->action == "SAVE"){
             Menus::create([
                 'role' => $request->role,
+                'parent_name' => $request->parent_menu,
                 'content' => $request->content,
                 'route_name'=> $request->route_name,
                 'ordered'=> $request->ordered,
@@ -40,6 +42,7 @@ class MenusController extends Controller
             $menu = Menus::findOrFail($request->id);
             $menu->update([
                 'role' => $request->role,
+                'parent_name' => $request->parent_name,
                 'content' => $request->content,
                 'route_name' => $request->route_name,
                 'ordered'=> $request->ordered,

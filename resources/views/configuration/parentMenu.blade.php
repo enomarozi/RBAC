@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<button class="btn btn-primary mb-3" onClick="modalAdd()">Add Child Menu</button>
+<button class="btn btn-primary mb-3" onClick="modalAdd()">Add Parent Menu</button>
 
 <div class="modal" id="modalAdd">
     <div class="modal-content">
@@ -9,28 +9,25 @@
             <h4 id="titleModal"></h4>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('crudMenu') }}">
+            <form method="POST" action="{{ route('crudParentMenu') }}">
             	@csrf
             	<input id='id_' type="hidden" name="id" required>
                 <div class="mb-3">
-                    <select id='parent_code_' class="form-select" aria-label="Default select example" name='parent_code'>
-                        <option value="" selected disabled hidden>--- Choose Parent Code ---</option>
-                        @foreach($parents as $parent)
-                            <option value="{{ $parent->parent_code }}">{{ $parent->parent_code }}</option>
+                    <select id='role_' class="form-select" aria-label="Default select example" name='role'>
+                        <option value="" selected disabled hidden>--- Choose Role ---</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
-                    <input id='content_' class='form-control' type="text" name="content" placeholder="Content Name" required>
-                </div>
-            	<div class="mb-3">
-            		<input id='route_name_' class='form-control' type="text" name="route_name" placeholder="Route Name" required>
-            	</div>
-                <div class="mb-3">
-                    <input id='order_' class='form-control' type="number" name="ordered" placeholder="Order" required>
+                    <input id='parent_code_' class='form-control' type="text" name="parent_code" placeholder="Parent Code" required>
                 </div>
                 <div class="mb-3">
-                    <input id='icon_' class='form-control' type="text" name="icon" placeholder="Icon" required>
+                    <input id='parent_name_' class='form-control' type="text" name="parent_name" placeholder="Parent Name" required>
+                </div>
+                <div class="mb-3">
+                    <input id='ordered_' class='form-control' type="number" name="ordered" placeholder="Order" required>
                 </div>
             	<button id="submit_" type="submit" name="action" class="btn btn-primary w-100"></button>
             </form>
@@ -42,11 +39,11 @@
     <div class="modal-content">
         <span class="close" style="cursor: pointer;">&times;</span>
         <div class="text-center mb-2">
-            <h4 id="titleModal">Delete Menu</h4>
+            <h4 id="titleModal">Delete Parent Menu</h4>
         </div>
         <div class="modal-body text-center">
             <p>Are you sure you want to delete this item? This action cannot be undone.</p>
-            <form method="POST" action="{{ route('crudMenu') }}">
+            <form method="POST" action="{{ route('crudParentMenu') }}">
                 @csrf
                 <input type="hidden" id="idDel" name="id">
                 <div class="d-flex justify-content-between">
@@ -62,11 +59,10 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Role</th>
             <th>Parent Code</th>
-            <th>Content Name</th>
-            <th>Route Name</th>
+            <th>Parent Menu</th>
             <th>Order</th>
-            <th>Icon</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -75,7 +71,7 @@
 </table>
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
-    fetch('{{ route("getMenu") }}')
+    fetch('{{ route("getParentMenu") }}')
     .then(response => response.json())
     .then(data => {
         const tbody = document.getElementById('menus-tbody');
@@ -88,29 +84,25 @@
             row.appendChild(noCell);
             autoIncrementId++;
 
+            const roleCell = document.createElement('td');
+            roleCell.textContent = menu.role;
+            row.appendChild(roleCell);
+
             const parentCodeCell = document.createElement('td');
             parentCodeCell.textContent = menu.parent_code;
             row.appendChild(parentCodeCell);
 
-            const contentCell = document.createElement('td');
-            contentCell.textContent = menu.content;
-            row.appendChild(contentCell);
+            const parentNameCell = document.createElement('td');
+            parentNameCell.textContent = menu.parent_name;
+            row.appendChild(parentNameCell);
 
-            const routeCell = document.createElement('td');
-            routeCell.textContent = menu.route_name;
-            row.appendChild(routeCell);
-
-             const orderedCell = document.createElement('td');
+            const orderedCell = document.createElement('td');
             orderedCell.textContent = menu.ordered;
             row.appendChild(orderedCell);
 
-             const iconCell = document.createElement('td');
-            iconCell.textContent = menu.icon;
-            row.appendChild(iconCell);
-
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.parent_code}","${menu.content}","${menu.route_name}","${menu.ordered}","${menu.icon}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalEdit(${menu.id},"${menu.role}","${menu.parent_code}","${menu.parent_name}",${menu.ordered})' class="btn btn-xs btn-success">Edit</button>
                 <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
@@ -123,11 +115,10 @@
 <script type="text/javascript">
     function modalAdd(){
         document.getElementById('id_').value='';
+        document.getElementById('role_').value='';
         document.getElementById('parent_code_').value='';
-        document.getElementById('content_').value='';
-        document.getElementById('route_name_').value='';
-        document.getElementById('order_').value='';
-        document.getElementById('icon_').value='';
+        document.getElementById('parent_name_').value='';
+        document.getElementById('ordered_').value='';
 
         const btnSubmit = document.getElementById("submit_");
         btnSubmit.textContent = "Save"
@@ -141,7 +132,7 @@
         }
         
         const titleModal = document.getElementById("titleModal");
-        titleModal.textContent = "Add Child Menu"
+        titleModal.textContent = "Add Parent Menu"
 
         window.onclick = function(event){
             if(event.target === modal){
@@ -153,13 +144,12 @@
         }
     }
 
-    function modalEdit(id,parent_code,content,path,order,icon){
+    function modalEdit(id,role,parent_code,parent_name,ordered){
         document.getElementById('id_').value=id;
+        document.getElementById('role_').value=role;
         document.getElementById('parent_code_').value=parent_code;
-        document.getElementById('content_').value=content;
-        document.getElementById('route_name_').value=path;
-        document.getElementById('order_').value=order;
-        document.getElementById('icon_').value=icon;
+        document.getElementById('parent_name_').value=parent_name;
+        document.getElementById('ordered_').value=ordered;
 
         const btnSubmit = document.getElementById("submit_");
         btnSubmit.textContent = "Update"
@@ -173,7 +163,7 @@
         }
 
         const titleModal = document.getElementById("titleModal");
-        titleModal.textContent = "Edit Child Menu"            
+        titleModal.textContent = "Edit Parent Menu"            
 
         window.onclick = function(event){
             if(event.target === modal){

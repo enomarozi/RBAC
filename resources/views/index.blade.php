@@ -114,7 +114,10 @@
                     <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-th-list"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Menu</a>
+                    <a class="nav-link dropdown-toggle fas fas fa-folder"  href="{{ route('parent_menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Parent Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle fas fas fa-file"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Child Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
@@ -125,12 +128,18 @@
             </div>
             @endif
             <div class="card-title">
+                @php
+                $parentNames = DB::table('parent_menu')
+                             ->select('parent_name')
+                             ->orderBy('ordered', 'asc')
+                             ->get();
+                @endphp
                 <span class='text-light' style="color: white;">Data</span>
                 @php
                 $menus = DB::table('menus')
-                            ->where('role', $role[0])
-                            ->orderBy('ordered', 'asc')
-                            ->get();
+                        ->where('role', $role[0])
+                        ->orderBy('ordered', 'asc')
+                        ->get();
                 @endphp
                 @foreach($menus as $menu)
                 <li class="nav-item">

@@ -11,22 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('parent_menu', function (Blueprint $table) {
             $table->id();
-            $table->string('parent_code')->unique();
-            $table->string('content');
-            $table->string('route_name');
+            $table->string('role');
+            $table->string('parent_code');
+            $table->string('parent_name');
             $table->string('ordered');
-            $table->string('icon');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('parent_menu');
     }
 };

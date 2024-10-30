@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menus extends Model
+class ParentMenu extends Model
 {
     use HasFactory;
 
-    protected $table = 'menus';
+    protected $table = 'parent_menu';
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
+        'role',
         'parent_code',
-        'content',
-        'route_name',
+        'parent_name',
         'ordered',
-        'icon',
         'created_at',
         'updated_at',
     ];

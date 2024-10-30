@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AccountsController,MenusController,RolesController,PermissionsController,AccessRoleController};
+use App\Http\Controllers\{AccountsController,ParentMenuController,MenusController,RolesController,PermissionsController,AccessRoleController};
 
 Route::GET('/',[AccountsController::class,'index'])->middleware('auth')->name("index");
 
@@ -22,6 +22,10 @@ Route::group(['prefix' => 'account'], function () {
 });
 
 Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administrator']], function () {
+	Route::GET('/parent_menu',[ParentMenuController::class,'parent_menu'])->name('parent_menu');
+	Route::POST('/crudParentMenu',[ParentMenuController::class,'crudParentMenu'])->name('crudParentMenu');
+	Route::GET('/getParentMenu',[ParentMenuController::class,'getParentMenu'])->name("getParentMenu");
+
 	Route::GET('/menu',[MenusController::class,'menu'])->name('menu');
 	Route::POST('/crudMenu',[MenusController::class,'crudMenu'])->name('crudMenu');
 	Route::GET('/getMenu',[MenusController::class,'getMenu'])->name("getMenu");
