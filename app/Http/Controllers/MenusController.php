@@ -18,8 +18,7 @@ class MenusController extends Controller
             return redirect()->back()->withSuccess('Menu Deleted successfully!');
         }
         $validasi = $request->validate([
-            'role'=>'required|max:30',
-            'parent_name'=>'required|max:30',
+            'parent_code'=>'required|max:30',
             'content'=>'required|max:30',
             'route_name'=>'required|max:40',
             'ordered'=>'required|max:2',
@@ -28,8 +27,7 @@ class MenusController extends Controller
         ]);
         if($request->action == "SAVE"){
             Menus::create([
-                'role' => $request->role,
-                'parent_name' => $request->parent_menu,
+                'parent_code' => $request->parent_code,
                 'content' => $request->content,
                 'route_name'=> $request->route_name,
                 'ordered'=> $request->ordered,
@@ -41,8 +39,7 @@ class MenusController extends Controller
         }elseif($request->action == "UPDATE"){
             $menu = Menus::findOrFail($request->id);
             $menu->update([
-                'role' => $request->role,
-                'parent_name' => $request->parent_name,
+                'parent_code' => $request->parent_code,
                 'content' => $request->content,
                 'route_name' => $request->route_name,
                 'ordered'=> $request->ordered,

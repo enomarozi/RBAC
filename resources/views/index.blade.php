@@ -126,27 +126,30 @@
                     <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                 </li>                
             </div>
-            @endif
-            <div class="card-title">
+            @else
                 @php
                 $parentNames = DB::table('parent_menu')
-                             ->select('parent_name')
+                             ->where('role',$role[0])
                              ->orderBy('ordered', 'asc')
                              ->get();
                 @endphp
-                <span class='text-light' style="color: white;">Data</span>
-                @php
-                $menus = DB::table('menus')
-                        ->where('role', $role[0])
-                        ->orderBy('ordered', 'asc')
-                        ->get();
-                @endphp
-                @foreach($menus as $menu)
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle {{$menu->icon}}" href="{{ route($menu->route_name) }}" role="button" aria-expanded="true" aria-controls="submenu1"> {{$menu->content}}</a>
-                </li>
+                @foreach($parentNames as $name)
+                <div class="card-title">
+                    <span class='text-light' style="color: white;">{{ $name->parent_name }}</span>
+                    @php
+                        $menus = DB::table('menus')
+                                ->where('parent_code',$name->parent_code)
+                                ->orderBy('ordered', 'asc')
+                                ->get();
+                    @endphp
+                    @foreach($menus as $menu)
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle {{ $menu->icon }}" href="{{ route($menu->route_name) }}" role="button" aria-expanded="true" aria-controls="submenu1"> {{ $menu->content }}</a>
+                        </li>    
+                    @endforeach
+                </div>
                 @endforeach
-            </div>  
+            @endif  
         </ul>
     </div>
 </div>

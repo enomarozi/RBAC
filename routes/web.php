@@ -46,4 +46,5 @@ Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administ
 Route::group(['prefix' => 'dti','middleware' => ['auth','role:dti']], function () {
 	Route::GET('/data',[MenusController::class,'menu'])->name('dti.data');
 	Route::GET('/admin',[MenusController::class,'menu'])->name('admin.dti');
+	Route::GET('/user',[MenusController::class,'menu'])->name('usedata');
 });
