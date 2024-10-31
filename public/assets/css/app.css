@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 *{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins';
 }
 .topbar {
     position: fixed;
@@ -17,7 +17,7 @@
     padding: 0 20px;
 }
 .dark-icon {
-    color: #333;
+    color: black;
     margin-left: 8px;
 }
 .btn-account{

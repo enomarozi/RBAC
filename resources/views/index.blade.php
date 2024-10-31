@@ -8,7 +8,7 @@
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<!-- Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 	<link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
 </head>
 <style>
@@ -44,23 +44,23 @@
         cursor: pointer;
     }
     .topbar{
-        background-color: #d6dde5;
+        background-color: #b6bdc2;
     }
     .sidebar{
-        background-color: #3a4750;
+        background-color: #212529;
     }
     .card-title{
-        background-color: #5a6873;
+        background-color: #343a40;
     }
     .nav-link{
         color: white;
-        background-color: #3a4750;
+        background-color: #212529;
     }
     .content{
         background-color: white;
     }
     .content-detail{
-        background-color: #f0f4f7;
+        background-color: #e9ecee;
         padding: 1%;
         margin: 5px;
         border-radius: 5px;
