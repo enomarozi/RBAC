@@ -14,6 +14,11 @@ class AccessRoleController extends Controller
         return view('configuration/roleAccess',compact('users','roles'));
     }
     public function crudAccessRole(Request $request){
+        if($request->action == "DELETE"){
+            $roles = AccessRole::findOrFail($request->id);
+            $roles->delete();
+            return redirect()->back()->withSuccess('Access Role Deleted successfully!');
+        }
         $validasi = $request->validate([
             'username'=>'required|min:2|max:30',
             'role'=>'required|min:2|max:30',
@@ -21,12 +26,12 @@ class AccessRoleController extends Controller
         ]);
         if($request->action == "SAVE"){
                 AccessRole::create([
-                'user' => $request->username,
-                'role' => $request->role,
-                'permission'=>$request->permission,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ]);
+                    'user' => $request->username,
+                    'role' => $request->role,
+                    'permission'=>$request->permission,
+                    'created_at'=>now(),
+                    'updated_at'=>now(),
+                ]);
             return redirect()->back()->withSuccess('Access Role Created successfully!');
 
         }elseif($request->action == "UPDATE"){

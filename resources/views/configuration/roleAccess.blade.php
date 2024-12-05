@@ -24,7 +24,9 @@
                     <select id='role_' class="form-select" aria-label="Default select example" name='role'>
                         <option value="" selected disabled hidden>--- Choose Role ---</option>
                         @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @if($role->name !== "administrator")
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -32,6 +34,26 @@
                     <input id='permission_' class='form-control' type="text" name="permission" placeholder="Permission" value="Create Read Update Delete" required readonly>
                 </div>
                 <button id="submit_" type="submit" name="action" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalDel">
+    <div class="modal-content">
+        <span class="close" style="cursor: pointer;">&times;</span>
+        <div class="text-center mb-2">
+            <h4 id="titleModal">Delete Access Role</h4>
+        </div>
+        <div class="modal-body text-center">
+            <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            <form method="POST" action="{{ route('crudAccessRole') }}">
+                @csrf
+                <input type="hidden" id="idDel" name="id">
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary w-50" id="cancelButton">Cancel</button>
+                    <button id="submit_" type="submit" name="action" value="DELETE" class="btn btn-danger w-50">Delete</button>
+                </div>
             </form>
         </div>
     </div>
@@ -81,6 +103,7 @@
             const actionCell = document.createElement('td');
             actionCell.innerHTML = `
                 <button onClick='modalEdit(${menu.id},"${menu.user}", "${menu.role}")' class="btn btn-xs btn-success">Edit</button>
+                <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
             `;
             row.appendChild(actionCell);
 
@@ -146,6 +169,27 @@
         }
         btnSubmit.onclick = function(){
             modal.style.display = "none";
+        }
+    }
+    function modalDelete(id) {
+        document.getElementById('idDel').value = id;
+        const modal = document.getElementById('modalDel');
+        modal.style.display = "block";
+
+        const span = document.getElementsByClassName("close")[1];
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        const cancelButton = document.getElementById('cancelButton');
+        cancelButton.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
         }
     }
 </script>

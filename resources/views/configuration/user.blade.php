@@ -39,6 +39,7 @@
             <th>Full Name</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody id="menus-tbody">
@@ -71,6 +72,16 @@
             const emailCell = document.createElement('td');
             emailCell.textContent = menu.email;
             row.appendChild(emailCell);
+
+            const actionCell = document.createElement('td');
+            if (menu.is_active == 1) {
+                const url = `{{ route('statusUser', ['status' => 0, 'username' => '__username__']) }}`;
+                actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-danger">Disabled</a>`;
+            } else {
+                const url = `{{ route('statusUser', ['status' => 1, 'username' => '__username__']) }}`;
+                actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-success">Enabled</a>`;
+            }
+            row.appendChild(actionCell);
 
             tbody.appendChild(row);
         });

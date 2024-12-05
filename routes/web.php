@@ -37,6 +37,7 @@ Route::group(['prefix' => 'configuration','middleware' => ['auth','role:administ
 	Route::GET('/user',[AccountsController::class,'user'])->name("user");
 	Route::POST('/crudUser',[AccountsController::class,'crudUser'])->name("crudUser");
 	Route::GET('/getUser',[AccountsController::class,'getUser'])->name("getUser");
+	Route::GET('/statusUser/{username}/{status}',[AccountsController::class,'statusUser'])->name("statusUser");
 
 	Route::GET('/access_role',[AccessRoleController::class,'access_role'])->name('access_role');
 	Route::POST('/crudAccessRole',[AccessRoleController::class,'crudAccessRole'])->name('crudAccessRole');

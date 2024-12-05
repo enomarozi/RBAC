@@ -30,6 +30,11 @@ class AccountsController extends Controller
 
         $remember = $request->has('remember');
         if (Auth::attempt($request->only('username', 'password'), $remember)) {
+            $user = Auth::user();
+            if ($user->is_active == 0) {
+                Auth::logout();
+                return redirect()->back()->withErrors(['error' => 'Your account is not active.']);
+            }
             return redirect()->route('index');
         }
         return redirect()->back()->withErrors(['error' => 'Username or Password is incorrect.']);
@@ -75,7 +80,6 @@ class AccountsController extends Controller
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'User not found.']);
         }
-
 
         $token = Str::random(60);
         DB::table('password_reset_tokens')->updateOrInsert(
@@ -151,6 +155,18 @@ class AccountsController extends Controller
             $user->save();
             return redirect()->back()->withSuccess('User Created successfully.');
         }
+    }
+    public function statusUser($username,$status){
+        $user = auth()->user();
+        if($username === "administrator"){
+            return redirect()->back()->withErrors(['error'=>'Administrator status cannot be changed.']);
+            exit();
+        }
+        $change = DB::table('users')
+                ->where('username', $username)
+                ->update(['is_active' => $status]);
+        return redirect()->back()->withSuccess('Username '.$username.' status updated.');
+        
     }
     public function getUser(){
         $users = User::all();
