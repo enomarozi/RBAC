@@ -17,6 +17,7 @@ class RolesController extends Controller
                 $roles->delete();
                 return redirect()->back()->withSuccess('Role Deleted successfully!');
             }
+            return redirect()->back()->withErrors(['error'=>'Administrator status cannot be changed.']);
         }
         $validasi = $request->validate([
             'name'=>'required|max:30',

@@ -16,7 +16,9 @@
                     <select id='username_' class="form-select" aria-label="Default select example" name='username'>
                         <option value="" selected disabled hidden>--- Choose User ---</option>
                         @foreach($users as $user)
-                            <option value="{{ $user->username }}">{{ $user->username }}</option>
+                            @if($user->username !== "administrator")
+                                <option value="{{ $user->username }}">{{ $user->username }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -101,10 +103,12 @@
             row.appendChild(permissionCell);
 
             const actionCell = document.createElement('td');
-            actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.user}", "${menu.role}")' class="btn btn-xs btn-success">Edit</button>
-                <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
-            `;
+            if(menu.user != "administrator" && menu.role != "administrator"){
+                actionCell.innerHTML = `
+                    <button onClick='modalEdit(${menu.id},"${menu.user}", "${menu.role}")' class="btn btn-xs btn-success">Edit</button>
+                    <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
+                `;
+            }
             row.appendChild(actionCell);
 
             tbody.appendChild(row);
