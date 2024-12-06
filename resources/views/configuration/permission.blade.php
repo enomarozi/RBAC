@@ -127,11 +127,6 @@
         const titleModal = document.getElementById("titleModal");
         titleModal.textContent = "Add Permission"
 
-        window.onclick = function(event){
-            if(event.target === modal){
-                modal.style.display = "none";
-            }
-        }
         btnSubmit.onclick = function(){
             modal.style.display = "none";
         }
@@ -157,11 +152,6 @@
         const titleModal = document.getElementById("titleModal");
         titleModal.textContent = "Edit Permission"            
 
-        window.onclick = function(event){
-            if(event.target === modal){
-                modal.style.display = "none";
-            }
-        }
         btnSubmit.onclick = function(){
             modal.style.display = "none";
         }
@@ -180,12 +170,6 @@
         const cancelButton = document.getElementById('cancelButton');
         cancelButton.onclick = function() {
             modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
         }
     }
 </script>
