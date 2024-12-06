@@ -74,12 +74,14 @@
             row.appendChild(emailCell);
 
             const actionCell = document.createElement('td');
-            if (menu.is_active == 1) {
-                const url = `{{ route('statusUser', ['status' => 0, 'username' => '__username__']) }}`;
-                actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-danger">Disabled</a>`;
-            } else {
-                const url = `{{ route('statusUser', ['status' => 1, 'username' => '__username__']) }}`;
-                actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-success">Enabled</a>`;
+            if(menu.username != "administrator"){
+                if (menu.is_active == 1) {
+                    const url = `{{ route('statusUser', ['status' => 0, 'username' => '__username__']) }}`;
+                    actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-danger">Disabled</a>`;
+                } else {
+                    const url = `{{ route('statusUser', ['status' => 1, 'username' => '__username__']) }}`;
+                    actionCell.innerHTML = `<a href="${url.replace('__username__', menu.username)}" class="btn btn-xs btn-success">Enabled</a>`;
+                }
             }
             row.appendChild(actionCell);
 

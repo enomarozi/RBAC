@@ -81,10 +81,12 @@
             row.appendChild(subMenuCell);
 
             const actionCell = document.createElement('td');
-            actionCell.innerHTML = `
-                <button onClick='modalEdit(${menu.id},"${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
-                <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
-            `;
+            if(menu.name != "administrator"){
+                actionCell.innerHTML = `
+                    <button onClick='modalEdit(${menu.id},"${menu.name}","${menu.description}")' class="btn btn-xs btn-success">Edit</button>
+                    <button onClick='modalDelete(${menu.id})' class="btn btn-xs btn-danger">Delete</button>
+                `;
+            }
             row.appendChild(actionCell);
             tbody.appendChild(row);
         });

@@ -13,8 +13,10 @@ class RolesController extends Controller
     public function crudRole(Request $request){
         if($request->action == "DELETE"){
             $roles = Roles::findOrFail($request->id);
-            $roles->delete();
-            return redirect()->back()->withSuccess('Role Deleted successfully!');
+            if($roles->name !== "administrator"){
+                $roles->delete();
+                return redirect()->back()->withSuccess('Role Deleted successfully!');
+            }
         }
         $validasi = $request->validate([
             'name'=>'required|max:30',
@@ -31,12 +33,14 @@ class RolesController extends Controller
             return redirect()->back()->withSuccess('Role Created successfully!');
         }elseif($request->action == "UPDATE"){
             $roles = Roles::findOrFail($request->id);
-            $roles->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'updated_at' => now(),
-            ]);
-            return redirect()->back()->withSuccess('Role Updated successfully!');
+            if($roles->name !== "administrator"){
+                $roles->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'updated_at' => now(),
+                ]);
+                return redirect()->back()->withSuccess('Role Updated successfully!');
+            }
         }
         return redirect()->back()->withErrors(['error' => 'Action failed. Please try again.']);
     }

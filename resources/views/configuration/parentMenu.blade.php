@@ -16,7 +16,9 @@
                     <select id='role_' class="form-select" aria-label="Default select example" name='role'>
                         <option value="" selected disabled hidden>--- Choose Role ---</option>
                         @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @if($role->name !== "administrator")
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
