@@ -10,7 +10,8 @@ class AccessRoleController extends Controller
     public function access_role(){
         $users = User::all();
         $roles = Roles::all();
-        return view('configuration/roleAccess',compact('users','roles'));
+        $title = "Manage | Access Role";
+        return view('configuration/roleAccess',compact('users','roles','title'));
     }
     public function crudAccessRole(Request $request){
         if($request->action == "DELETE"){

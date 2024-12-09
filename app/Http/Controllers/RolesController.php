@@ -8,7 +8,8 @@ use App\Models\Roles;
 class RolesController extends Controller
 {
     public function role(){
-        return view('configuration/role');
+        $title = "Manage | Role";
+        return view('configuration/role',compact('title'));
     }
     public function crudRole(Request $request){
         if($request->action == "DELETE"){

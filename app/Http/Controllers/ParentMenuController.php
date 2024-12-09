@@ -10,7 +10,8 @@ class ParentMenuController extends Controller
     public function parent_menu(){
         $roles = Roles::all();
         $parent = ParentMenu::all();
-        return view('configuration/parentMenu',compact('parent','roles'));
+        $title = "Manage | Parent Menu";
+        return view('configuration/parentMenu',compact('parent','roles','title'));
     }
     public function crudParentMenu(Request $request){
         if($request->action == "DELETE"){

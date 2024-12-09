@@ -9,7 +9,8 @@ class MenusController extends Controller
 {
     public function menu(){
         $parents = ParentMenu::all();
-        return view('configuration/menu',compact('parents'));
+        $title = "Manage | Child Menu";
+        return view('configuration/menu',compact('parents','title'));
     }
     public function crudMenu(Request $request){
         if($request->action == "DELETE"){

@@ -17,7 +17,8 @@ class AccountsController extends Controller
     public function index(){
         $user = count(User::all());
         $role = count(Roles::all());
-        return view('dashboard/dashboard',compact('user','role'));
+        $title = "Dashboard";
+        return view('dashboard/dashboard',compact('user','role','title'));
     }
     public function login(){
         return view('accounts/login');
@@ -132,7 +133,8 @@ class AccountsController extends Controller
         
     }
     public function user(){
-        return view('configuration/user');
+        $title = "Manage | User";
+        return view('configuration/user',compact('title'));
     }
     public function crudUser(Request $request){
         $validasi = $request->validate([

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Dashboard</title>
+	<title>{{ $title }}</title>
 	<link rel="icon" type="image/x-icon" href="{{ asset('assets/images/unand-sm.png') }}">
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
