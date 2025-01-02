@@ -113,7 +113,8 @@ class AccountsController extends Controller
         return view('accounts/profile',compact('user','fullname','role'));
     }
     public function setting(){
-        return view('accounts/setting');
+        $title = "Setting";
+        return view('accounts/setting',compact('title'));
     }
     public function passwordAction(Request $request){
         $validasi = $request->validate([

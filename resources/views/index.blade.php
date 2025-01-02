@@ -8,7 +8,8 @@
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" crossorigin="anonymous">
 	<!-- Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 	<link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
 </head>
 <style>
@@ -44,26 +45,36 @@
         cursor: pointer;
     }
     .topbar{
-        background-color: #b6bdc2;
+        background-color: white;
+        border-bottom: 1px solid #d8dde8;
     }
     .sidebar{
-        background-color: #212529;
+        background-color: white;
+        border-right: 1px solid #d8dde8;
     }
     .card-title{
-        background-color: #343a40;
+        background-color: #ecf2fe;
     }
     .nav-link{
-        color: white;
-        background-color: #212529;
+        color: black;
+        background-color: white;
+        border-radius:  5px;
+        font-family: 'Montserrat', sans-serif;
     }
     .content{
-        background-color: white;
+        background-color: #ecf2fe;
+        min-height: 85vh;
     }
     .content-detail{
-        background-color: #e9ecee;
+        background-color: #ecf2fe;
         padding: 1%;
         margin: 5px;
         border-radius: 5px;
+    }
+    .btn-account {
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
     }
 </style>
 <body>
@@ -80,7 +91,7 @@
 
         <div class="dropdown">
             <button class="btn btn-account" type="button" id="dropdownAccount" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ Auth::user()->name }} <i class="fas fa-user-circle dark-icon"></i>
+                {{ Auth::user()->name }} <i class="bi bi-person-circle dark-icon" style="font-size: 2rem;"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                 <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
@@ -105,25 +116,25 @@
             @if($role[0] === "administrator")
             <div class="card-title">
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-tachometer-alt"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
+                    <a class="nav-link dropdown-toggle bi bi-house-door"  href="{{ route('index') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Dashboard</a>
                 </li>
             </div>
             <div class="card-title">
-                <span class='text-light' style="color: white;">Configuration</span>
+                <span class='text-dark' style="color: black;">Configuration</span>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-shield" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
+                    <a class="nav-link dropdown-toggle bi bi-shield-lock" href="{{ route('role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Role</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fas fa-folder"  href="{{ route('parent_menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Parent Menu</a>
+                    <a class="nav-link dropdown-toggle bi bi-folder"  href="{{ route('parent_menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Parent Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fas fa-file"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Child Menu</a>
+                    <a class="nav-link dropdown-toggle bi bi-file-earmark"  href="{{ route('menu') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Child Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
+                    <a class="nav-link dropdown-toggle bi bi-person-plus" href="{{ route('user') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle fas fa-user-tag" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
+                    <a class="nav-link dropdown-toggle bi bi-person-check" href="{{ route('access_role') }}" role="button" aria-expanded="true" aria-controls="submenu1"> Access Role</a>
                 </li>                
             </div>
             @else
@@ -135,7 +146,7 @@
                 @endphp
                 @foreach($parentNames as $name)
                 <div class="card-title">
-                    <span class='text-light' style="color: white;">{{ $name->parent_name }}</span>
+                    <span class='text-dark' style="color: white;">{{ $name->parent_name }}</span>
                     @php
                         $menus = DB::table('menus')
                                 ->where('parent_code',$name->parent_code)
@@ -178,7 +189,7 @@
         const logo = document.getElementById("sidebarLogo");
 
         var navLinks = document.querySelectorAll('.nav-link');
-        var subTitle = document.querySelectorAll('.text-light');
+        var subTitle = document.querySelectorAll('.text-dark');
 
         if (!document.getElementById("sidebar").classList.contains("collapsed")) {
             navLinks.forEach(function(link) {
