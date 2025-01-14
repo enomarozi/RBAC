@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('user')->unique();
             $table->string('role');
-            $table->string('permission');
+            $table->json('permissions');
             $table->text('description')->nullable();
             $table->timestamps();
         });

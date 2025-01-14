@@ -15,7 +15,11 @@ class Roles extends Model
     protected $fillable = [
         'name',
         'description',
+        'permissions',
         'created_at',
         'updated_at',
+    ];
+    protected $casts = [
+        'permissions' => 'array',
     ];
 }

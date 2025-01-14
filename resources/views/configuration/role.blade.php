@@ -15,6 +15,20 @@
             	<div class="mb-3">
             		<input id='name_' class='form-control' type="text" name="name" placeholder="Role Name" required>
             	</div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <label class="mr-2">
+                        <input type="checkbox" name="permissions[]" value="CREATE"> CREATE
+                    </label>
+                    <label class="mr-2">
+                        <input type="checkbox" name="permissions[]" value="READ"> READ
+                    </label>
+                    <label class="mr-2">
+                        <input type="checkbox" name="permissions[]" value="UPDATE"> UPDATE
+                    </label>
+                    <label class="mr-2">
+                        <input type="checkbox" name="permissions[]" value="DELETE"> DELETE
+                    </label>
+                </div>
             	<div class="mb-3">
             		<input id='description_' class='form-control' type="text" name="description" placeholder="Description">
             	</div>
@@ -49,6 +63,7 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Permissions</th>
             <th>Description</th>
             <th>Action</th>
         </tr>
@@ -76,9 +91,13 @@
             nameCell.textContent = menu.name;
             row.appendChild(nameCell);
 
-            const subMenuCell = document.createElement('td');
-            subMenuCell.textContent = menu.description;
-            row.appendChild(subMenuCell);
+            const permissionsCell = document.createElement('td');
+            permissionsCell.textContent = menu.permissions;
+            row.appendChild(permissionsCell);
+
+            const descriptionCell = document.createElement('td');
+            descriptionCell.textContent = menu.description;
+            row.appendChild(descriptionCell);
 
             const actionCell = document.createElement('td');
             if(menu.name != "administrator"){

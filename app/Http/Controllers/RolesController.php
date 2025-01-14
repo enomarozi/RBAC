@@ -22,12 +22,15 @@ class RolesController extends Controller
         }
         $validasi = $request->validate([
             'name'=>'required|max:30',
+            'permissions' => 'required|array',
+            'permissions.*' => 'in:CREATE,READ,UPDATE,DELETE',
             'description'=>'max:100',
             'action'=>'required|max:6',
         ]);
         if($request->action == "SAVE"){
             Roles::create([
                 'name' => $request->name,
+                'permissions' => $request->permissions,
                 'description'=> $request->description,
                 'created_at'=>now(),
                 'updated_at'=>now(),
@@ -38,6 +41,7 @@ class RolesController extends Controller
             if($roles->name !== "administrator"){
                 $roles->update([
                     'name' => $request->name,
+                    'permissions' => $request->permissions,
                     'description' => $request->description,
                     'updated_at' => now(),
                 ]);
