@@ -138,7 +138,7 @@
         }
     }
 
-    function modalEdit(id,name,description){
+    function modalEdit(id,name,description,permission){
         document.getElementById('id_').value=id;
         document.getElementById('name_').value=name;
         document.getElementById('description_').value=description;

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Models\AccessRole;
+use App\Models\{AccessRole,Logs};
 
 class RoleMiddleware
 {
@@ -14,9 +14,15 @@ class RoleMiddleware
             return redirect()->route('login'); 
         }
         $user = Auth::user();
+        Logs::create([
+                'username' => $user->username,
+                'action' => $request->method(),
+                'path' => $request->path(),
+            ]);
         $userRole = AccessRole::where('user', $user->username)->pluck('role')->first();
+
         if ($userRole !== $roles) {
-            return redirect()->back()->withErrors(['role' => 'You do not have permission to access this resource.']);
+            return redirect()->route('no_permission'); 
         }
         return $next($request);
     }

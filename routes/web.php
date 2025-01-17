@@ -49,3 +49,7 @@ Route::group(['prefix' => 'dti','middleware' => ['auth','role:dti']], function (
 	Route::GET('/admin',[MenusController::class,'menu'])->name('admin.dti');
 	Route::GET('/user',[MenusController::class,'menu'])->name('usedata');
 });
+
+Route::get('/no-permission', function () {
+    return view('accounts.no_permission');
+})->name('no_permission');
